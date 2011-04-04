@@ -1,0 +1,61 @@
+{% extends "modelBase.html" %}
+
+
+
+
+{% block tabcontent %}
+<script>
+	$(document).ready(function(){
+		$('#add-option').click(function(){
+			$('#orderable-options').append('<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href=""></a></li>');
+			return false;
+		});
+			
+		$('.row-remove').click(function(){
+			$(this).parents('li').remove();
+			$( "#orderable-options" ).sortable( "refresh" );
+			return false;
+		});
+		
+	});
+	
+</script>
+
+<div id="tab-content">
+<h2 id="title" class="title-stripe"> New Metric </h2>
+
+<form action="/metrics/new" method="post">{% csrf_token %}
+
+<div class="bubble-form">
+<table class="bubble-form-inner" width="100%">
+	<td class="right-break">
+		<table>
+		<tr class="form-row"><td class="form-field"><b>Metric name:</b></td></tr>
+		<tr class="form-row"><td class="form-field"> {{ form.name }} </td></tr>
+		<tr class="form-row"><td class="form-field"><b>Metric type:</b></td></tr>
+		<tr class="form-row"><td class="form-field"> {{ form.type }} </td></tr>
+		<tr><td class="form-row"><input type="submit" value="Submit"></td></tr>
+		</table>
+	</td>
+	<td class="form-pad">
+		<table>
+		<tr class="form-row"><td class="form-field">
+			<b>Selection Options:</b> (<a id="add-option" href="add-option"><img width="10px" height="10px" src="/static/img/admin/icon_addlink.gif" id="add-option"/>Add Option</a>)
+		</td>
+		<tr class="form-row"><td>
+	<ul id="orderable-options">
+		<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href=""></a></li>
+		<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href=""></a></li>
+		<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href=""></a></li>
+		<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href=""></a></li>
+	</ul>
+		</td></tr></table>
+	</td>
+</td>
+</table>
+</div>
+
+</div>
+</form>
+
+{% endblock %}

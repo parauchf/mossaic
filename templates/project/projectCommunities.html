@@ -1,0 +1,40 @@
+{% extends "projectBase.html" %}
+
+
+{% block tabcontent %}
+
+<div id="tab-content">
+	<div id="actions" class="stripe">
+		<a id="add-community" href="add-community"><img src="/static/img/admin/icon_addlink.gif"/> Add Community</a>
+		<a id="save" href="save"><img src="/static/img/admin/icon-yes.gif"/> Save Changes</a>
+	</div>
+	<div id="add-user" class="action-panel" visibility="none">
+		<form action="/projects/{{project.id}}/add-community" method="post">
+			{% csrf_token %}
+			<table><tr>
+				<td><b>New Community</b></td>
+				<td>{{ form.new_community }}</td> 
+				<td><input type="submit" value="Submit"></td>
+			</tr></table>
+		</form>
+	</div>
+	
+	<table cellpadding="0" cellspacing="0" border="0" class="display" id="users_table" width="100%" align="center">
+       	<thead>
+			<tr><th>Community</th><th>Description</th><th>Location</th><th>Actions</th></tr>
+		</thead>
+		<tbody>
+			{% for community in communities %}
+			<tr>
+				<td><a href="/communities/{{community.id}}/">{{community.name}}</td> 		
+				<td></td>
+				<td>{{community.location.x|floatformat:3}},{{community.location.y|floatformat:3}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+
+{% endblock %}

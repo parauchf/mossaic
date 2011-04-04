@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h2 id="title" class="title-stripe"> {{project.name}}: {{community.name}}</h2>
+<ul class="tabs">
+	<li><a href="/projects/{{project.id}}/general">01. General</a></li>
+    <li><a href="/projects/{{project.id}}/attachments">02. Attachments</a></li>
+	<li><a href="/projects/{{project.id}}/observations">03. Observations</a></li>
+</ul>
+<div id="tab-container">
+{% block tabcontent %}
+
+{% endblock %}
+<div id="tab-container">
+
+{% endblock %}

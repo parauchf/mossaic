@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<ul class="tabs green">
+	<li><a href="/models/metrics">01. Metrics</a></li>
+    <li><a href="/models/list">02. Risk Models</a></li>
+</ul>
+
+<div id="tab-container">
+{% block tabcontent %}
+
+{% endblock %}
+</div>
+
+{% endblock %}

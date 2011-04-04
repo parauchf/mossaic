@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/static/css/datatables.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" src="/static/js/jquery-1.5.min.js"></script>
+	<script language="JavaScript" src="/static/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-ui-1.8.11.custom.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/token-input.css" />
+	
+	<script type="text/javascript">
+		function enable(selector){
+		    $("#id_new_users").tokenInput("/ajax/users",{
+				classes: {
+				    tokenList: "token-input-list-facebook",
+				    token: "token-input-token-facebook",
+				    tokenDelete: "token-input-delete-token-facebook",
+				    selectedToken: "token-input-selected-token-facebook",
+				    highlightedToken: "token-input-highlighted-token-facebook",
+				    dropdown: "token-input-dropdown-facebook",
+				    dropdownItem: "token-input-dropdown-item-facebook",
+				    dropdownItem2: "token-input-dropdown-item2-facebook",
+				    selectedDropdownItem: "token-input-selected-dropdown-item-facebook",
+				    inputToken: "token-input-input-token-facebook",
+					preventDuplicates: true,
+				}
+			});
+			$('table.display').dataTable();
+			
+			$('#add-user input[type=submit]').click(function(){
+				$("li.token-input-token-facebook p").each( function(i){
+					$(this).append('<input type="hidden" name="username" value="'+$(this).text()+'" />');
+				});
+			});
+		}
+	</script>
+	
+	<script language="JavaScript">
+		$(document).ready(function(){
+			//navigation
+			$("ul.tabs li").click(function(){
+				var url;
+				var direction_in;
+				var direction_out;
+				
+				if($(this).index() == $("ul.tabs li.active").index()){
+					return false;
+				}
+				if($(this).index() > $("ul.tabs li.active").index()){
+					direction_in="left";
+					direction_out="right";
+				}else{
+					direction_in="right";
+					direction_out="left";
+				}
+				
+				//get the uri of the referenced page part
+				var url = $(this).children("a").attr("href") + " #tab-content";
+				
+				$(".tabs li").removeClass("active");
+				$(this).addClass("active");
+				
+				
+				directions=['left','right'];
+				$("#tab-container").
+					hide("slide",{"direction":direction_in},200).
+					load(url,enable).
+					show("slide",{"direction":direction_out},200);	
+			
+				return false;
+			});
+
+		});
+	</script>
+	
+	
+	
+	
+	<script language="JavaScript">
+	$(document).ready(enable);
+	</script>
+
+	<script>
+		$(function() {
+			$( "#orderable-options" ).sortable({
+				// placeholder: "ui-state-highlight"
+			});
+			$( "#orderable-options" ).disableSelection();
+		});
+	</script>
+	
+	
+	
+</head>
+<body>
+<div id="main">
+	<div class="header">
+		<div class="logo"></div>
+		
+			{% if user.is_authenticated %}
+			<div class="cur-user">{{ user.username }} / <a href="/accounts/logout/">Logout</a></div>
+			{% else %}
+			<div class="cur-user">Login</div>
+			{% endif %}
+			
+	</div>
+
+	<div id="content">
+			{% block content %}{% endblock %}
+	</div>
+</div>
+</body>
+
+</html>

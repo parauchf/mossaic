@@ -1,0 +1,413 @@
+body{
+	margin:0px;
+	padding:0px;
+	font: 12px "Helvetica", sans-serif;
+}
+
+.logo{
+	margin-left: 10px;
+	font-size:48px;
+	float: left;
+	width: 150px;
+	height:68px;
+	background-image: url(http://www.static.mossaic.peterrauchfuss.com/img/logo.png);
+	display: block;
+}
+
+#container{
+	margin-left: auto;
+	margin-right: auto;
+	width: 800px;
+	background: #F6F6F6;
+	padding: 0px;
+}
+
+#content{
+	padding: 0px;
+	margin: 0px;
+}
+
+.form-row{
+	background: #fff;
+	margin: 2px 0px;
+}
+
+#content-main{
+	padding: 0px;
+	margin: 0px;
+}
+
+#user-tools{
+	color: orange;
+}
+
+#user-tools a{
+	color: white;
+}
+
+#user-tools a:hover{
+	text-decoration: underline;
+}
+
+.selector-available h2, .selector-chosen h2{
+	background: #634172;
+	color: white;
+}
+
+.header{
+	background: #333333;
+	height: 70px;
+}
+
+.breadcrumbs{
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #999;
+	background: #dedede;
+	display: block;
+	list-style: none;
+}
+
+.breadcrumbs li:hover{
+	background: #80A1C1;
+	color: #fff;
+	text-decoration: underline;
+}
+
+.breadcrumbs li{
+	margin: 0px;
+	margin-left: 1px;
+	height: 16px;
+	background: #D4DBE2;
+	float: left;
+	display: block;
+	width: 80px;
+	padding: 2px;
+	text-align: center;
+	list-style: none;
+}
+
+
+.title{
+	font-size: 30px;
+	font-weight: bold;
+	float: left;
+	display: block;
+	margin: 20px;
+}
+
+.txn_field{
+	float: right;
+	background: #666;
+	width: 200px;
+	height: 100%;
+	display: block;
+	border-left: 1px solid #999;
+}
+
+.ur_row{
+	margin: 0px;
+	display: block;
+	height: 50%;
+}
+
+.txn-inner{
+	margin: 5px 5px;
+}
+
+.txn-label{
+	height: 20px;
+	width: 30px;
+	float: left;
+	display: block;
+}
+
+.cur-user{
+	color: #fff;
+	float: right;
+	display: inline;
+	padding: 4px;
+	margin: 1px;
+}
+
+.spacer{ height: 10px;}
+
+.block{
+	margin: 0px;
+}
+.gray0{
+	background: #eee;
+}
+.gray1{
+	background: #ddd;
+}
+
+.text-pad{
+	padding: 10px;
+}
+
+.display-table{
+	border: 1px solid #cccddd;
+	background: #ffffff;
+}
+
+/****************************************************************************/
+/* SCHEDULE STUFF */
+/****************************************************************************/
+
+.red{
+	background: #DEA0AF;
+/*	border: 1px solid #8A5E69;*/
+}
+
+.red:hover{
+	background: coral;
+}
+
+.track{
+	margin: 0px;
+	padding: 0px;
+	position: relative;
+	height: 20px;
+	float: left;
+	display: block;
+	width: 600px;
+}
+
+.bar{
+	position: absolute;
+	top: 0px;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	float: left;
+}
+
+.bar-inner{
+	height: 20px;
+	margin-right: 1px;
+	margin-top: 1px;
+	text-align: center;
+	float: left;
+	display: block;
+}
+
+
+.sched-col{
+	position: absolute;
+	height: 20px;
+}
+.sched-col-inner{
+	background: #efefef;
+	text-align: center;
+	margin:1px;
+	height: 100%;
+	display: block;
+}
+
+.sched-cell{
+	padding:0px !important;
+	border: none !important;;
+}
+/****************************************************************************/
+/* DATATABLES STUFF */
+/****************************************************************************/
+
+
+.paging_two_button .ui-button {
+	float: left;
+	cursor: pointer;
+	* cursor: hand;
+	
+}
+
+.paging_full_numbers .ui-button {
+	padding: 2px 6px;
+	margin: 0;
+	cursor: pointer;
+	* cursor: hand;
+}
+
+.ui-buttonset .ui-button {
+	margin-right: -0.1em !important;
+}
+
+.paging_full_numbers {
+	width: 350px !important;
+}
+
+.ui-toolbar {
+	padding: 5px;
+}
+
+.dataTables_paginate {
+	width: auto;
+}
+
+.dataTables_info {
+	padding-top: 3px;
+}
+
+table.display thead th {
+	padding: 3px 0px 3px 10px;
+	cursor: pointer;
+	* cursor: hand;
+}
+
+div.dataTables_wrapper .ui-widget-header {
+	font-weight: normal;
+}
+
+
+
+table.display thead th div.DataTables_sort_wrapper {
+	position: relative;
+	padding-right: 20px;
+	padding-right: 20px;
+}
+
+table.display thead th div.DataTables_sort_wrapper span {
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	right: 0;
+}
+
+
+.dataTables_processing {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	width: 250px;
+	margin-left: -125px;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 11px;
+	padding: 2px 0;
+}
+
+.dataTables_length {
+	width: 40%;
+	float: left;
+}
+
+.dataTables_filter {
+	width: 50%;
+	float: right;
+	text-align: right;
+}
+
+.dataTables_info {
+	width: 50%;
+	float: left;
+}
+
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
+.paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
+	height: 19px;
+	width: 19px;
+	margin-left: 3px;
+	float: left;
+}
+
+.paginate_button{
+	margin: 5px 2px 5px 0px;
+	padding: 3px;
+	border: 1px solid #AAA;
+}
+
+.paginate_active{
+	background: #AAA;
+	color: #FFF;
+	margin: 0px 0px 0px 0px;
+	padding: 3px;
+	border: 1px solid #AAA;
+}
+
+.paging_full_numbers{
+	margin: 5px;
+}
+
+.datatables_info{
+	margin: 5px;
+}
+
+table.display {
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+}
+
+table.display tfoot th {
+	padding: 3px 0px 3px 10px;
+	font-weight: bold;
+	font-weight: normal;
+}
+
+table.display tr.heading2 td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.display td {
+	padding: 3px 3px;
+	border: 1px solid #aaa;
+}
+
+table.display td:hover {
+	/*background: #EBC486;*/
+}
+
+
+table.display td.center {
+	text-align: center;
+}
+
+table.display *{
+	font-size: 12px;
+	font-family: "Courier New", Courier, monospace;
+	font-weight: normal;
+	color: #666;
+}
+
+/****************************************************************************/
+/*CUSTOM DATATABLES STUFF */
+/****************************************************************************/
+.sorting_asc {
+	background: #FFF url('http://static.erp.peterrauchfuss.com/css/images/sort_asc.png') no-repeat center right;
+}
+
+.sorting_desc {
+	background: #FFF url('http://static.erp.peterrauchfuss.com/css/images/sort_desc.png') no-repeat center right;
+}
+
+.sorting {
+	background: #FFF url('http://static.erp.peterrauchfuss.com/css/images/sort_both.png') no-repeat center right;
+}
+
+.sorting_asc, .sorting_desc, .sorting{
+	border: 1px solid #aaa;
+	
+}
+
+div .dataTables_wrapper{
+	clear: both;
+	font-size: 10pt;
+}
+
+
+
+table.display tr.odd {
+	background-color: #FFF;
+	border-top: 1px solid #999;
+}
+
+table.display tr.even {
+	background-color: #FFF;
+	border-top: 1px solid #999;
+}
