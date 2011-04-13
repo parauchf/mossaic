@@ -17,9 +17,9 @@ from django.shortcuts import render_to_response
 from django.core import serializers
 
 from projects.models import Project, Membership
-from communities.models import Community, Observation
+from communities.models import Community
 from users.models import MossaicUser
-from risk_models.models import RiskModel, Metric, MCOption
+from risk_models.models import RiskModel, Metric, MCOption, Observation, Metric
 
 from django import forms
 from django.forms.widgets import RadioSelect
@@ -34,26 +34,27 @@ class MetricForm(ModelForm):
 	class Meta:
 		model = Metric
 
-def editMetric(request,metric_id):
-	metric = Metric.objects.get(pk=metric_id)
-	InlineChoiceFormSet = inlineformset_factory(Metric,MCOption)
+def metric(request,metric_id):
+	try:
+		metric = Metric.objects.get(pk=metric_id)
+	except:
+		metric = Metric
 	
 	if request.method=="POST":
-		formset = InlineChoiceFormSet(request.POST,request.FILES, instance=metric)
+		options = InlineChoiceFormSet(request.POST, request.FILES, instance=metric)
 		form = MetricForm(request.POST,instance=metric)
 		
-		if form.is_valid() and formset.is_valid():
+		if form.is_valid() and options.is_valid():
 			form.save()
-			formset.save()
-		
-		return HttpResponseRedirect("/metrics")
+			options.save()
+			return HttpResponseRedirect("/metrics")
 	
 	else:
-		formset = InlineChoiceFormSet(instance=metric)
-		# form = MetricForm(instance=metric)
+		form = MetricForm(instance=metric)
+		options = InlineChoiceFormSet(instance=metric)
 		context = RequestContext(request,{
-			# 'form': form,
-			'formset': formset,
+			'form': form,
+			'options': formset,
 		})
 	return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
 
