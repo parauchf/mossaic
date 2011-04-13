@@ -21,66 +21,41 @@ from communities.models import Community, Observation
 from users.models import MossaicUser
 from risk_models.models import RiskModel, Metric, MCOption
 
-
 from django import forms
 from django.forms.widgets import RadioSelect
 
+from django.forms.models import inlineformset_factory
+from django.forms.models import modelformset_factory
+from django.forms import ModelForm, Textarea
+
 @csrf_protect
 
-class NewMetricForm(forms.Form):
-	pass
+class MetricForm(ModelForm):
+	class Meta:
+		model = Metric
 
-def metric(request,metric_id):
-	if request.method=="GET":
-		try:
-			options=MetricMultipleChoiceOption.objects.filter(metric__id__exact=metric_id)
-			metric=Metric.objects.get(id__exact=metric_id)
-			form = NewMetricForm()
-			context = RequestContext(request,{
-				'form': form,
-				'options': options,
-				'metric': metric
-			})	
-		except:
-			raise Http404
-		
-		return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
+def editMetric(request,metric_id):
+	metric = Metric.objects.get(pk=metric_id)
+	InlineChoiceFormSet = inlineformset_factory(Metric,MCOption)
 	
 	if request.method=="POST":
-		form = NewMetricForm(request.POST)
+		formset = InlineChoiceFormSet(request.POST,request.FILES, instance=metric)
+		form = MetricForm(request.POST,instance=metric)
 		
-		if form.data['type'] == 'MC':
-			try:
-				mmc=MetricMultipleChoice.objects.get(id__exact=metric_id)
-			except:
-				mmc=MetricMultipleChoice(
-					name=form.data['name']
-				)
-			mmc.save()
-			
-			index=1
-			for option in form.data.getlist('option'):
-				if option == "":
-					continue
-				opt = MetricMultipleChoiceOption(
-					name=option,
-					ordinal=index,
-					metric=mmc
-				)
-				index+=1
-				opt.save()
+		if form.is_valid() and formset.is_valid():
+			form.save()
+			formset.save()
 		
-		if form.data['type'] == 'DC':
-			mdc=MetricDecimal(
-				name=form.data['name'],
-				precision=form.data['precision'],
-				unitOfMeasure=form.data['unitofmeasure'],
-				minimumValue=forms.data['minimum'],
-				maximumValue=forms.data['maximum']
-			)
-			mdc.save()
-	
 		return HttpResponseRedirect("/metrics")
+	
+	else:
+		formset = InlineChoiceFormSet(instance=metric)
+		# form = MetricForm(instance=metric)
+		context = RequestContext(request,{
+			# 'form': form,
+			'formset': formset,
+		})
+	return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
 
 def metricList(request):
 	if request.method=="GET":
@@ -94,3 +69,5 @@ def metricList(request):
 		})
 		
 		return render_to_response('modelMetricList.html',context,context_instance=RequestContext(request))
+
+

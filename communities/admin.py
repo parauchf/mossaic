@@ -3,13 +3,13 @@ from django.contrib.gis import admin
 from django.views.decorators.csrf import csrf_protect
 
 from projects.models import Project, Membership
-from communities.models import Community, Observation
+from communities.models import Community
 from users.models import MossaicUser
-from risk_models.models import RiskModel, Metric, MCOption
+from risk_models.models import Observation, RiskModel, Metric, MCOption
 
 
 class ObservationInline(admin.TabularInline):
-	model=Observation
+	model = Observation
 
 class CommunityAdmin(admin.OSMGeoAdmin):
 	model=Community
