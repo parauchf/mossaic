@@ -2,6 +2,10 @@
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 
+from django.forms.models import inlineformset_factory
+from django.forms.models import modelformset_factory
+from django.forms import ModelForm, Textarea
+
 class Metric(models.Model):
 	name = models.CharField(max_length=200)
 	
@@ -12,21 +16,27 @@ class Metric(models.Model):
 	unitOfMeasure = models.CharField(max_length=100,blank=True,null=True)
 	
 	TYPE_CHOICES = (
-	        ('M', 'Multiple choice'),
-	        ('D', 'Numeric'),
-	    )
-	type = models.CharField(max_length=1,choices=TYPE_CHOICES)
+		('M', 'Multiple choice'),
+		('D', 'Numeric'),
+	)
+	
+	metricType = models.CharField(max_length=1,choices=TYPE_CHOICES,blank=False,null=False)
 	
 	def type(self):
-		return type
-	
+		return metricType
+		
 	def __unicode__(self):
 		return self.name
 
+class MetricForm(ModelForm):
+	class Meta:
+		model = Metric
+
 class MCOption(models.Model):
 	name = models.CharField(max_length=200)
-	ordinal = models.IntegerField()
 	metric = models.ForeignKey('Metric')
+
+ChoiceFormSet = inlineformset_factory(Metric,MCOption,can_order=True,can_delete=True)
 
 class MCScore(models.Model):
 	option = models.ForeignKey('MCOption')
@@ -84,3 +94,4 @@ class RiskModel(models.Model):
 	# 		if observations.count == 0:
 	# 			if metric.missingValuePolicy == 'D':
 					
+MetricFormSet = inlineformset_factory(RiskModel,ModelMetricLink,can_delete=True)
