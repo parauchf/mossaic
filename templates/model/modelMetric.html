@@ -5,10 +5,27 @@
 
 {% block tabcontent %}
 <script>
+function updateOptionsPane(){	
+	if($('#id_metricType').val() == 'D'){
+		$('.right-pane').hide();
+		$('#dc-specific').show("fade");
+	}
+	if($('#id_metricType').val	() == 'M'){
+		$('.right-pane').hide();
+		$('#mc-specific').show("fade");
+	}
+}
+</script>
+
+<script>
+	$(document).ready(updateOptionsPane);
+	
 	$(document).ready(function(){
 		$('#add-option').click(function(){
+			
+			
 			$('#orderable-options').append('<li class="ui-state-default"><input type="text" value="" name="option" /><a class="row-remove" href="#"></a></li>');
-
+			
 			return false;
 		});
 		
@@ -18,38 +35,25 @@
 			return false;
 		});
 	
-		$('#MC-radio').change(function(){
-			$('.right-pane').hide();
-			$('#mc-specific').show("fade");
-		});
+		$('#id_metricType').change(updateOptionsPane);
 	
-		$('#DC-radio').change(function(){
-			$('.right-pane').hide();
-			$('#dc-specific').show("fade");
-		});
-		
 	});
 	
 </script>
 
 <div id="tab-content">
 
-<form action="/metrics" method="post">{% csrf_token %}
-{% if metric.id > 0 %}
-<input type="hidden" name="metric-id" value="{{ metric.id }}" />
-{% endif %}
+<form method="post" action="">{% csrf_token %}
+
 <div class="bubble-form">
 <div class="bubble-form-inner">
 	<div class="pane right-break">
 		<table>
 			<tr class="form-row"><td class="form-field"><b>Metric name:</b></td></tr>
-			<tr class="form-row"><td class="form-field"> <input type="text" name="name" id="id_name" value="{{ metric.name }}"/> </td></tr>
+			<tr class="form-row"><td class="form-field"> {{ form.name }} </td></tr>
 			<tr class="form-row"><td class="form-field"><b>Metric type:</b></td></tr>
 			<tr class="form-row"><td class="form-field">
-				<ul> 
-					<li><label for="id_type_0"><input type="radio" id="MC-radio" value="MC" name="type" {% if metric.type == "multiple_choice" %} checked {% endif %}/> Multiple Choice</label></li> 
-					<li><label for="id_type_1"><input type="radio" id="DC-radio" value="DC" name="type" {% if metric.type == "decimal" %} checked {% endif %}/> Decimal Value</label></li> 
-				</ul> 
+					{{ form.metricType }}
 			</td></tr>
 			<tr><td class="form-row"><input type="submit" value="Submit"></td></tr>
 		</table>
@@ -59,27 +63,42 @@
 			<tr class="form-row"><td class="form-field">
 				<b>Selection Options:</b> (<a id="add-option" href="add-option"><img width="10px" height="10px" src="/static/img/admin/icon_addlink.gif" id="add-option"/>Add Option</a>)
 			</td></tr>
-			<tr class="form-row"><td>
-				<ul id="orderable-options">	
-					{% for option in options %}
-					<li class="ui-state-default"><input type="text" value="{{option.name}}" name="option" /><a class="row-remove" href=""></a></li>	
-					{% endfor %}
-				</ul>
-			</td></tr>
+			<tr id="#options-header"><th>Option</th><th>Order</th><th>Delete</th>
+			{{ options.management_form }}
+			{% for form in options.forms %}
+			<tr>
+				<td class="option-name">{{ form.name }}</td>
+				<td class="option-order">{{ form.ORDER }}</td>
+				<td class="option-delete">{{ form.DELETE }}{{ form.id }}</td>
+			</tr>
+			{% endfor %}
+			
+			</td>
+			</tr>
 		</table>
 	</div>
 	<div class="pane right-pane" id="dc-specific" style="display:none">
 		<table>
-			<tr class="form-row"><td class="form-label">
-				<b>Decimal Options:</b></td>
-			</tr><tr class="form-row">
-				<td class="form-label">Minimum value:</td><td class="form-field"><input value="0" name="minimumvalue"> </td>
-			</tr><tr class="form-row">
-				<td class="form-label">Maximum value:</td><td class="form-field"><input value="0" name="maximumvalue"> </td>
-			</tr><tr class="form-row">
-				<td class="form-label">Unit of Measure:</td><td class="form-field"><input value="0" name="precision"> </td>
-			</tr><tr class="form-row">
-				<td class="form-label">Digits to display:</td><td class="form-field"><input value="0" name="unitofmeasure"> </td>
+			<tr class="form-row">
+				<td class="form-label">
+				<b>Decimal Options:</b>
+				</td>
+			</tr>
+			<tr class="form-row">
+				<td class="form-label">Minimum value:</td> 
+				<td class="form-field"> {{ form.minimumValue }} </td>
+			</tr>
+			<tr class="form-row">
+				<td class="form-label">Maximum value:</td> 
+				<td class="form-field"> {{ form.maximumValue }} </td>
+			</tr>
+			<tr class="form-row">
+				<td class="form-label">Unit of Measure:</td>
+				<td class="form-field"> {{ form.unitOfMeasure }} </td>
+			</tr>
+			<tr class="form-row">
+				<td class="form-label">Digits to display:</td>
+				<td class="form-field"> {{ form.precision }} </td>
 			</tr>
 		</table>
 	</div>

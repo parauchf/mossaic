@@ -1,0 +1,50 @@
+{% extends "modelBase.html" %}
+
+
+{% block tabcontent %}
+
+
+<div id="tab-content">
+
+<form method="post" action="">
+
+{% csrf_token %}
+<table>
+{% for metric in metrics %}
+
+		
+		{% if metric.metricType == 'D' %}
+		<tr>
+		<td>{{ metric.name }}</td>
+
+		
+		<td><input value="{{ metric.weight }}"/></td>
+		<td>{{ metric.defaultDecimalValue }}</td>
+		<td>{{ metric.missingValuePolicy }}</td>
+		<td>{{ metric.duplicateValuePolicy }}</td>
+		</tr>
+		{% endif %}
+		{% if metric.metricType == 'M' %}
+		<tr>
+		<td>{{ metric.name }}</td>
+
+		<td></td>
+		<td></td>
+		<td>{{ metric.missingValuePolicy }}</td>
+		<td>{{ metric.duplicateValuePolicy }}</td>
+		</tr>
+		{% for choice in metric.mcoption_set.all %}
+		<tr>
+			<td>{{ choice.name }}</td>
+			<td><input value="{{ choice.weight }}"/></td>
+		</tr>
+		{% endfor %}
+		
+		{% endif %}
+		
+
+{% endfor %}
+</table>
+</form>
+
+{% endblock %}
