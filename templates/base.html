@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<link href="/static/css/main.css" rel="stylesheet" type="text/css" />
-	<link href="/static/css/datatables.css" rel="stylesheet" type="text/css" />
+
 	<script language="JavaScript" src="/static/js/jquery-1.5.min.js"></script>
 	<script language="JavaScript" src="/static/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
@@ -26,7 +26,7 @@
 					preventDuplicates: true,
 				}
 			});
-			$('table.display').dataTable();
+			$('table.sortable').dataTable();
 			
 			$('#add-user input[type=submit]').click(function(){
 				$("li.token-input-token-facebook p").each( function(i){
@@ -81,22 +81,22 @@
 	$(document).ready(enable);
 	</script>
 
-	<script>
+	<!-- <script>
 		$(function() {
 			$( "#orderable-options" ).sortable({
 				// placeholder: "ui-state-highlight"
 			});
 			$( "#orderable-options" ).disableSelection();
 		});
-	</script>
+	</script> -->
 	
 	
 	
 </head>
 <body>
-<div id="main">
-	<div class="header">
-		<div class="logo"></div>
+<div id="container">
+	<div id="header">
+		<div id="logo"></div>
 		
 			{% if user.is_authenticated %}
 			<div class="cur-user">{{ user.username }} / <a href="/accounts/logout/">Logout</a></div>

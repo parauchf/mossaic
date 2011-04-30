@@ -30,7 +30,7 @@ from django.forms import ModelForm, Textarea
 
 @csrf_protect
 
-def metric(request,metric_id):
+def metric(request,metric_id, *args, **kwargs):
 	try:
 		metric = Metric.objects.get(pk=metric_id)
 	except:
@@ -43,7 +43,13 @@ def metric(request,metric_id):
 		if form.is_valid() and formset.is_valid():
 			form.save()
 			formset.save()
-			return HttpResponseRedirect("/metrics")
+			
+			if 'project_id' in kwargs:
+				project_id=kwargs['project_id']
+				project=Project.objects.get(pk=project_id)
+				project.metrics.add(metric)
+		
+		return HttpResponseRedirect("/metrics")
 		
 	else:
 		form = MetricForm(instance=metric)
@@ -54,10 +60,9 @@ def metric(request,metric_id):
 		})
 	return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
 
-def newMetric(request):
-	metric = Metric()
-	metric.save()
-	return HttpResponseRedirect("/metrics/%d"%(metric.id))
+def riskModel(request,project_id):
+	return render_to_response('modelMetricList.html',context,context_instance=RequestContext(request))
+
 
 def metricList(request):
 	try:
@@ -71,30 +76,16 @@ def metricList(request):
 	
 	return render_to_response('modelMetricList.html',context,context_instance=RequestContext(request))
 
-def riskModel(request,model_id):
+def riskModelList(request):
 	try:
-		riskModel = RiskModel.objects.get(pk=model_id)
+		riskModels=RiskModel.objects.all()
 	except:
-		riskModel = RiskModel()
+		raise Http404
 	
-	if request.method=="POST":
-		formset = MetricFormSet(request.POST, request.FILES, instance=riskModel)
-		
-		if formset.is_valid():
-			formset.save()
-			return HttpResponseRedirect("/models/")
-			
-	else:
-		#TODO filter by project
-		metrics = Metric.objects.all()
-		formset = MetricFormSet(instance=riskModel)
-		context = RequestContext(request,{
-			'metrics': metrics,
-		})
-	return render_to_response('modelRiskModel.html',context,context_instance=RequestContext(request))
+	context = RequestContext(request,{
+		'riskModels': riskModels
+	})
 	
-def newRiskModel(request):
-	riskModel = RiskModel()
-	riskModel.save()
-	return HttpResponseRedirect("/models/%d"%(riskModel.id))
+	return render_to_response('modelRiskModelList.html',context,context_instance=RequestContext(request))
+
 

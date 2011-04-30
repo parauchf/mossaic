@@ -1,9 +1,9 @@
-#from django.db import models
+# from django.db import models
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 
 class Community(models.Model):
-	objects = models.GeoManager()
+	# objects = models.GeoManager()
 	name = models.CharField(max_length=200)
 	location = models.PointField(srid=4326,blank=True,null=True)
 	project = models.ForeignKey('projects.Project')

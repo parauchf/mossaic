@@ -3,6 +3,8 @@
 
 {% block content %}
 
+<h2 id="title" class="path"> {{project.name}}</h2>
+
 <ul class="tabs yellow">
 	<li><a href="/projects/{{project.id}}/admin">01. Administration</a></li>
     <li><a href="/projects/{{project.id}}/models">02. Risk Models</a></li>
@@ -11,7 +13,7 @@
  	<li><a href="/projects/{{project.id}}/risk">05. Risk Matrix</a></li>
 	<li><a href="/projects/{{project.id}}/map">06. Map View</a></li>
 </ul>
-<h2 id="title" class="title-stripe"> {{project.name}}</h2>
+
 <div id="tab-container">
 {% block tabcontent %}
 
