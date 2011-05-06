@@ -1,50 +1,99 @@
 {% extends "modelBase.html" %}
 
 
+
+
 {% block tabcontent %}
+
+
+<script>
+$(document).ready(function() {
+	$('.choice-row').hide();
+
+	var rightArrow=String.fromCharCode(0x25b6);
+	var downArrow=String.fromCharCode(0x25bc);
+	
+	$('.group-arrow').click(function(){
+		if($(this).text() == rightArrow){
+			$(this).parents('tbody').children('.choice-row').show();
+			$(this).text(downArrow)
+		}
+		else{
+			$(this).parents('tbody').children('.choice-row').hide();
+			$(this).text(rightArrow);
+		}
+		return false;
+	});
+	
+
+});
+
+</script>
+
+
+
 
 
 <div id="tab-content">
 
+
 <form method="post" action="">
 
 {% csrf_token %}
-<table>
-{% for metric in metrics %}
 
+<a class="a-ctl" href="#">&#x2714; Save Changes</a>
+<a class="a-ctl" href="#">&#x271a; Add Metric</a>
+<a class="a-ctl" href="#">&#x270e; Create new Metric</a>	
+<input type="submit" value="Submit">
+
+<table class="display grad">
+<thead>
+	<th width="5%"></th>
+	<th width="19%">Metric</th>
+	<th width="19%">Weight/Score</th>
+	<th width="19%">Transformation</th>
+	<th width="19%">Duplicate Policy</th>
+	<th width="19%">Missing Policy</th>
+</thead>
+<tbody>
+	
+	{{ link_forms.management_form }}
+	{% for link in link_forms.forms %}
+	<tr>
+		<td>
+			{% if link.instance.metric.metricType == "M" %}
+			<a class="group-arrow collapsed" href="#">&#x25b6;</a>
+			{% endif %}
+		</td>
+		<td>
+			{{ link.id }}
+			<b>{{ link.instance.metric }}</b>
+		</td>
 		
-		{% if metric.metricType == 'D' %}
-		<tr>
-		<td>{{ metric.name }}</td>
-
+		<td>{{ link.weight }}</td>
+		<td>{{ link.transformation}} </td>
 		
-		<td><input value="{{ metric.weight }}"/></td>
-		<td>{{ metric.defaultDecimalValue }}</td>
-		<td>{{ metric.missingValuePolicy }}</td>
-		<td>{{ metric.duplicateValuePolicy }}</td>
-		</tr>
-		{% endif %}
-		{% if metric.metricType == 'M' %}
-		<tr>
-		<td>{{ metric.name }}</td>
-
+		<td>{{ link.duplicateValuePolicy}} </td>
+		<td>{{ link.missingValuePolicy }}</td>
+	</tr>
+	
+	
+	{{ link.nested.management_form }}
+	{% for choice in link.nested.forms %}
+	<tr class="choice-row">
+		<td></td>
+		<td>{{ choice.id }} - {{ choice.instance.option }}</td>
+		<td>{{ choice.score }}</td>
 		<td></td>
 		<td></td>
-		<td>{{ metric.missingValuePolicy }}</td>
-		<td>{{ metric.duplicateValuePolicy }}</td>
-		</tr>
-		{% for choice in metric.mcoption_set.all %}
-		<tr>
-			<td>{{ choice.name }}</td>
-			<td><input value="{{ choice.weight }}"/></td>
-		</tr>
-		{% endfor %}
-		
-		{% endif %}
-		
-
-{% endfor %}
+		<td></td>
+	</tr>
+	{% endfor %}
+	{% endfor %}	
+</tbody>
 </table>
 </form>
+
+</div>
 
 {% endblock %}

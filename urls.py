@@ -36,13 +36,18 @@ urlpatterns = patterns('',
 	(r'^projects/(?P<project_id>\d+)/models', 'projects.views.riskModelList'),
 	(r'^projects/(?P<project_id>\d+)/add-model', 'risk_models.views.riskModel'),
 	
+	(r'^projects/(?P<project_id>\d+)/observations', 'projects.views.observationList'),
+	(r'^projects/(?P<project_id>\d+)/observations/(?P<observation_id>)', 'risk_models.views.observation'),
+	(r'^projects/(?P<project_id>\d+)/new-observation', 'risk_models.views.newObservation'),
 	
 	(r'^metrics/?$', 'risk_models.views.metricList'),
 	(r'^metrics/(?P<metric_id>\d+)/?', 'risk_models.views.metric'),
 	(r'^metrics/new/?', 'risk_models.views.metric'),
 	
 	(r'^models/?$', 'risk_models.views.riskModelList'),
-	(r'^models/(?P<model_id>\d+)/?', 'risk_models.views.riskModel'),
+	(r'^models/(?P<riskModel_id>\d+)/?', 'risk_models.views.riskModel'),
 	(r'^models/new/?', 'risk_models.views.riskModel'),
+	
+	(r'^accounts/login', 'django.contrib.auth.views.login', {'template_name': '/templates/login.html'}),
 	
 )

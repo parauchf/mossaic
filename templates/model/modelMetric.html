@@ -6,11 +6,11 @@
 {% block tabcontent %}
 <script>
 function updateOptionsPane(){	
-	if($('#id_metricType').val() == 'D'){
+	if($('#id_metric-metricType').val() == 'D'){
 		$('#right-pane table').hide();
 		$('#d-specific').show("fade");
 	}
-	if($('#id_metricType').val	() == 'M'){
+	if($('#id_metric-metricType').val	() == 'M'){
 		$('#right-pane table').hide();
 		$('#m-specific').show("fade");
 	}
@@ -42,7 +42,7 @@ function updateOptionsPane(){
 		
 		});
 	
-		$('#id_metricType').change(updateOptionsPane);
+		$('#id_metric-metricType').change(updateOptionsPane);
 	
 	});
 	

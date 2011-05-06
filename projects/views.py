@@ -19,7 +19,7 @@ from django.core import serializers
 from projects.models import Project, Membership
 from communities.models import Community
 from users.models import MossaicUser
-from risk_models.models import RiskModel, Metric, MCOption, Observation
+from risk_models.models import *
 
 from django import forms
 from django.forms.widgets import RadioSelect
@@ -30,6 +30,8 @@ class NewUserForm(forms.Form):
 	new_users = forms.CharField()
 
 @csrf_protect
+@login_required
+
 def userList(request,project_id):
 	# if request.method=="POST":
 	# 	request.POST[u'username']
@@ -118,6 +120,20 @@ def ajaxUsers(request):
 		users = User.objects.filter(username__icontains=q)[0:9]
 		return render_to_response('ajaxUsers.json',{'users':users})
 	return HttpResponse("")
+
+
+def observationList(request,project_id):
+	# try:
+	observations=Observation.objects.filter(community__project__id__exact=project_id).all()
+	# except:
+	# 		raise Http404
+	
+	context = RequestContext(request,{
+		'observations': observations
+	})
+
+	return render_to_response('projectObservationList.html',context,context_instance=RequestContext(request))
+
 
 def metricList(request,project_id):
 	try:

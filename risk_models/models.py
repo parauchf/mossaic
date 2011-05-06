@@ -54,36 +54,38 @@ class Metric(models.Model):
 	def __unicode__(self):
 		return self.name
 	
-	
-	def save(self):
-		# if family_id in kwargs:
-		# 			self.family = MetricFamily.get(pk=family_id)
-		# 			self.version = family.getNewVersion()
-		
-		f = MetricFamily()
-		f.save()
-		self.family_id = f.id
-		self.version = f.getNewVersion()
-		
+	def save(self, *args, **kwargs):
+		if 'family_id' in kwargs:
+		 	self.family = MetricFamily.get(pk=family_id)
+		else:
+			f = MetricFamily()
+			f.save()
+			self.family_id = f.id
+			
+		self.version = self.family.getNewVersion()
 		super(Metric, self).save()
-
-class MetricForm(ModelForm):
-	class Meta:
-		model = Metric
-		widgets = {
-			# 'metricType': RadioSelect,
-		}
 
 class MCOption(models.Model):
 	name = models.CharField(max_length=200)
 	metric = models.ForeignKey('Metric')
 
-ChoiceFormSet = inlineformset_factory(Metric,MCOption,can_order=True,can_delete=True)
+	def __unicode__(self):
+		return self.name
+		
+
+# ModelFormSet = inlineformset_factory(models.RiskModel, models.Metric,formset=BaseBuildingFormset, extra=1)
 
 class MCScore(models.Model):
+	# TODO: do we need the option fk?
 	option = models.ForeignKey('MCOption')
-	riskModel = models.ForeignKey('RiskModel')
+	modelMetricLink = models.ForeignKey('ModelMetricLink')
 	score = models.DecimalField(max_digits=19,decimal_places=10)
+	
+	def __unicode__(self):
+		return "%s<->%s" % (self.option.name,self.modelMetricLink.riskModel.name)
+		
+	class Meta:
+	 	unique_together = ("option", "modelMetricLink")
 
 class Observation(models.Model):
 	community = models.ForeignKey('communities.Community')
@@ -91,8 +93,8 @@ class Observation(models.Model):
 	user = models.ForeignKey('users.MossaicUser')
 	timestamp = models.DateTimeField(auto_now=True)
 	
-	value = models.DecimalField(max_digits=19,decimal_places=10)
-	mcValue = models.ForeignKey('risk_models.MCOption')
+	value = models.DecimalField(max_digits=19,decimal_places=10,blank=True,null=True)
+	mcValue = models.ForeignKey('risk_models.MCOption',blank=True,null=True)
 	
 	def __unicode__(self):
 		return (self.community.name + ": " + self.metric.name)
@@ -100,16 +102,29 @@ class Observation(models.Model):
 class ModelMetricLink(models.Model):
 	riskModel = models.ForeignKey('RiskModel')
 	metric = models.ForeignKey('Metric')
-	transformation = models.CharField(max_length=200)
+	transformation = models.CharField(max_length=200,blank=True,null=True)
 	
-	weight = models.DecimalField(max_digits=19,decimal_places=10)
+	weight = models.DecimalField(max_digits=19,decimal_places=10,blank=True,null=True)
 	
-	defaultDecimalValue = models.DecimalField(max_digits=19,decimal_places=10)
+	defaultDecimalValue = models.DecimalField(max_digits=19,decimal_places=10,null=True,blank=True)
 	defaultMCValue = models.IntegerField(blank=True,null=True)
+	# ,choices=metric.mcoption_set)
 	
-	missingValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES)
+	missingValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES,default="I")
 	
-	duplicateValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES)
+	duplicateValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES,default="A")
+
+	def save(self, *args, **kwargs):
+		super(ModelMetricLink, self).save()
+		scores = self.mcscore_set
+		for option in self.metric.mcoption_set.all():
+				s = MCScore(
+					option = option,
+					modelMetricLink = self,
+					score = 0
+				)
+				s.save()
+
 
 class RiskModelFamily(models.Model):
 	name = models.CharField(max_length=200)
@@ -118,17 +133,34 @@ class RiskModelFamily(models.Model):
 	def getNewVersion(self):
 		self.version_max += 1
 		return self.version_max
-
+	
 	def __init__(self, *args, **kwargs):
-		super(MetricFamily, self).__init__(*args, **kwargs)
+		super(RiskModelFamily, self).__init__(*args, **kwargs)
 		self.version_max = 1
 
 class RiskModel(models.Model):
 	name = models.CharField(max_length=200)
-	version = models.IntegerField(editable=False)
-	family = models.ForeignKey('MetricFamily',editable=False)
 	
-	formula = models.CharField(max_length=200)
+	version = models.IntegerField(editable=False)
+	family = models.ForeignKey('RiskModelFamily',editable=False)
+	
 	metrics = models.ManyToManyField('Metric',through=ModelMetricLink)
+	
+	def __unicode__(self):
+		return self.name
+	
+	def save(self, *args, **kwargs):
+		f = RiskModelFamily()
+		f.save()
+		self.family = f
+		
+		self.version = self.family.getNewVersion()
+		super(RiskModel, self).save()
 
-MetricFormSet = inlineformset_factory(RiskModel,ModelMetricLink,can_delete=True)
+class RiskModelForm(ModelForm):
+	class Meta:
+		model = RiskModel
+		widgets = {
+			# 'metricType': RadioSelect,
+		}
+
