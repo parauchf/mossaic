@@ -41,10 +41,15 @@ $(document).ready(function() {
 
 {% csrf_token %}
 
-<a class="a-ctl" href="#">&#x2714; Save Changes</a>
-<a class="a-ctl" href="#">&#x271a; Add Metric</a>
-<a class="a-ctl" href="#">&#x270e; Create new Metric</a>	
-<input type="submit" value="Submit">
+<div id="actions" class="stripe">
+
+<a class="a-ctl inactive inline" href="/projects/{{project.id}}/models/{{model.id}}/new-metric">&#x271a; Add metric</a>
+<a class="a-ctl inactive inline" href="/projects/{{project.id}}/metrics/new?model={{model.id}}">&#x270e; Create new metric</a>	
+</div>
+
+<div id="action-panel" class="actions-panel">
+	
+</div>
 
 <table class="display grad">
 <thead>
@@ -67,31 +72,47 @@ $(document).ready(function() {
 		</td>
 		<td>
 			{{ link.id }}
-			<b>{{ link.instance.metric }}</b>
+			<b>{{ link.instance.metric }}{{link.metric}}</b>
 		</td>
 		
-		<td>{{ link.weight }}</td>
-		<td>{{ link.transformation}} </td>
+		<td>
+			{% if link.instance.metric.metricType == "D" %}
+			{{ link.weight.errors }}{{ link.weight }}
+			{% endif %}
+		</td>
+		<td>
+			{% if link.instance.metric.metricType == "D" %}
+			{{ link.transformation.errors }}{{ link.transformation}} 
+			{% endif %}	
+		</td>
 		
-		<td>{{ link.duplicateValuePolicy}} </td>
-		<td>{{ link.missingValuePolicy }}</td>
+		<td>{{ link.duplicateValuePolicy.errors }}{{ link.duplicateValuePolicy}} </td>
+		<td>{{ link.missingValuePolicy.errors }}{{ link.missingValuePolicy }}</td>
 	</tr>
 	
-	
+	{% if link.instance.metric.metricType == "M" %}
 	{{ link.nested.management_form }}
 	{% for choice in link.nested.forms %}
 	<tr class="choice-row">
 		<td></td>
 		<td>{{ choice.id }} - {{ choice.instance.option }}</td>
-		<td>{{ choice.score }}</td>
+		<td>{{ choice.score }}{{ choice.option }}{{ choice.modelMetricLink }}</td>
 		<td></td>
 		<td></td>
 		<td></td>
 	</tr>
 	{% endfor %}
-	{% endfor %}	
+	{% endif %}	
+	
+	{% endfor %}
+	
 </tbody>
 </table>
+
+
+<div id="submit-container" class="stripe">
+<input type="submit" value="Save changes">
+</div>
 </form>
 
 </div>

@@ -5,23 +5,21 @@
 
 
 
+
+
 <div id="tab-content">
 	<div id="actions" class="stripe">
-		<a class="a-ctl" href="#">&#x271a; Add new</a>
+		<!-- <a class="a-ctl inactive" href="#" id="save-changes"><span class="org-inv">&#x2714;</span> Save Changes</a> -->
+		<a class="a-ctl inactive inline" href="/projects/{{project.id}}/users/new" id="add-users"><span class="org-inv">&#x271a;</span> Add Existing Users</a>
+		<a class="a-ctl inactive inline" href="#" id="invite-users"><span class="org-inv">&#x270e;</span> Invite New User</a>
+		<a class="a-ctl inactive inline" href="#"><span class="org-inv">&#x1f50d; Search</a>
 	</div>
-	<div id="add-user" class="bubble-form" visibility="none">
-		<div class="bubble-form-inner">
-			
-		<form action="/projects/{{project.id}}/add-user" method="post">
-			{% csrf_token %}
-			<table><tr>
-				<td><b>New Users</b></td>
-				<td>{{ form.new_users }}</td> 
-				<td><input type="submit" value="Submit"></td>
-			</tr></table>
-		</form>
-		</div>
+	
+	
+	<div id="action-panel" class="actions-panel">
+		
 	</div>
+	
 	 <table class="display grad" cellpadding="0" cellspacing="0" border="0" class="display" id="users_table" width="100%" align="center">
        	<thead>
 			<tr><th>Username</th>

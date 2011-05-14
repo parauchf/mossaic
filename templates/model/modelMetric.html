@@ -1,64 +1,32 @@
-{% extends "modelBase.html" %}
+{% extends "base.html" %}
+
+{% block content %}
+<h2 id="title" class="path">/{{project.name}}/metrics/
+{% if is_new %}
+new metric
+{% endif %}
+{% if not is_new %}
+{{metric.name}}
+{% endif %}
+</h2>
 
 
-
-
-{% block tabcontent %}
-<script>
-function updateOptionsPane(){	
-	if($('#id_metric-metricType').val() == 'D'){
-		$('#right-pane table').hide();
-		$('#d-specific').show("fade");
-	}
-	if($('#id_metric-metricType').val	() == 'M'){
-		$('#right-pane table').hide();
-		$('#m-specific').show("fade");
-	}
-}
-</script>
 
 <script>
 	$(document).ready(updateOptionsPane);
-	
-	
-	
-	
-	$(document).ready(function(){
-		
-		$('.option-order').hide();
-		$('.option-delete').hide();
-		$('#options-header').hide();
-		
-		$('.rm-inline').click(function(){
-			$(this).parents('tr.form-row').find('input:checkbox').attr('checked', true);
-			$(this).parents('tr.form-row').hide("fade");
-			return false;
-		});
-		
-		
-		$('#add-option').click(function(){
-			
-			
-		
-		});
-	
-		$('#id_metric-metricType').change(updateOptionsPane);
-	
-	});
-	
+	$(document).ready(enable_metric_js);
 </script>
 
-<div id="tab-content">
 
-<form method="post" action="">{% csrf_token %}
-
-<div class="bubble-form">
-<table class="display metric-disp">
+<div class="action-panel" id="action-panel">
+<form method="post" action="/projects/{{project.id}}/metrics/new{% if model.id %}?model={{model.id}}{% endif %}">
+{% csrf_token %}
+<table class="metric-disp">
 	<tbody><tr>
 	<td class="right-edge">
 		<table>
 			<tr class="form-row"><td class="form-field"><b>Metric name:</b></td></tr>
-			<tr class="form-row"><td class="form-field"> {{ form.name }} </td></tr>
+			<tr class="form-row"><td class="form-field"> {{ form.name }} {{ form.project }}</td></tr>
 			<tr class="form-row"><td class="form-field"><b>Metric type:</b></td></tr>
 			<tr class="form-row"><td class="form-field">
 					{{ form.metricType }}
@@ -115,7 +83,6 @@ function updateOptionsPane(){
 </table>
 </div>
 
-</div>
 </form>
 
 {% endblock %}

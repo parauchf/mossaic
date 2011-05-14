@@ -9,8 +9,8 @@ class Project(models.Model):
 	slug = models.SlugField(max_length=50, editable=False)
 	users = models.ManyToManyField('users.MossaicUser',through='Membership')
 	
-	metrics = models.ManyToManyField('risk_models.Metric',null=True,blank=True)
-	riskModels = models.ManyToManyField('risk_models.RiskModel',null=True,blank=True)
+	# metrics = models.ManyToManyField('risk_models.Metric',null=True,blank=True)
+	# riskModels = models.ManyToManyField('risk_models.RiskModel',null=True,blank=True)
 	
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)

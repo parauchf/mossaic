@@ -5,14 +5,69 @@
 
 	<script language="JavaScript" src="/static/js/jquery-1.5.min.js"></script>
 	<script language="JavaScript" src="/static/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
 	<script type="text/javascript" src="/static/js/jquery-ui-1.8.11.custom.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/css/token-input.css" />
+
 	
-	<script type="text/javascript">
-		function enable(selector){
-		    $("#id_new_users").tokenInput("/ajax/users",{
-				classes: {
+	<script>
+		function enable_metric_js(){
+			$('.option-order').hide();
+			$('.option-delete').hide();
+			$('#options-header').hide();
+		
+			$('.rm-inline').click(function(){
+				$(this).parents('tr.form-row').find('input:checkbox').attr('checked', true);
+				$(this).parents('tr.form-row').hide("fade");
+				return false;
+			});
+		
+		
+			$('#add-option').click(function(){
+			
+			});
+	
+			$('#id_metric-metricType').change(updateOptionsPane);
+		}
+		
+		function updateOptionsPane(){	
+			if($('#id_metric-metricType').val() == 'D'){
+				$('#right-pane table').hide();
+				$('#d-specific').show("fade");
+			}
+			if($('#id_metric-metricType').val	() == 'M'){
+				$('#right-pane table').hide();
+				$('#m-specific').show("fade");
+			}
+		}
+	
+		function enable_action_tabs(){
+
+			$('.a-ctl.inline').click(function(){
+				var url = $(this).attr("href") + " #action-panel";
+				
+				$('.a-ctl.active').removeClass("active").addClass("inactive");
+				$(this).removeClass("inactive");
+				$(this).addClass("active");
+
+				$("#action-panel").hide("appear",function(){
+					$("#action-panel").empty();
+					$(this).load(url,function(){
+						enable_tokens();
+						enable_metric_js();
+						updateOptionsPane();
+						$("#action-panel").show("appear");
+					});
+				});
+				
+				return false;
+			});
+		}
+		
+		function enable_tokens(){
+			$(".tokenized").each(function(){
+				var query_url = '/' + $(this).attr('class').match(/ajaxurl-([\w-]+)/)[1].replace("-","/");
+				
+				$(this).tokenInput(query_url,{
+					classes: {
 				    tokenList: "token-input-list-facebook",
 				    token: "token-input-token-facebook",
 				    tokenDelete: "token-input-delete-token-facebook",
@@ -23,23 +78,30 @@
 				    dropdownItem2: "token-input-dropdown-item2-facebook",
 				    selectedDropdownItem: "token-input-selected-dropdown-item-facebook",
 				    inputToken: "token-input-input-token-facebook",
-					preventDuplicates: true,
-				}
+					// preventDuplicates: true,
+				}})
 			});
-			$('table.sortable').dataTable();
-			
-			$('#add-user input[type=submit]').click(function(){
-				$("li.token-input-token-facebook p").each( function(i){
-					$(this).append('<input type="hidden" name="username" value="'+$(this).text()+'" />');
+			$('.tokenized').parents('form').find("input:submit").click(function(){
+				var fields = new Array;
+				$('.tokenized').siblings('ul').find('li p').each(function(){
+					fields.push($(this).text());
 				});
+				$(".tokenized").val(fields.join(';'));
 			});
 		}
 	</script>
 	
 	<script language="JavaScript">
 		$(document).ready(function(){
+			enable_action_tabs();
+		});
+	</script>
+	
+	<script language="JavaScript">
+		$(document).ready(function(){
+			
 			//navigation
-			$("ul.tabs li").click(function(){
+			$("ul.tabs li").live('click',function(){
 				var url;
 				var direction_in;
 				var direction_out;
@@ -62,11 +124,13 @@
 				$(this).addClass("active");
 				
 				
-				directions=['left','right'];
 				$("#tab-container").
-					hide("slide",{"direction":direction_in},200).
-					load(url,enable).
-					show("slide",{"direction":direction_out},200);	
+					hide("slide",{"direction":direction_in},200,function(){
+						$(this).load(url,function(){
+							enable_action_tabs();
+							$("#tab-container").show("slide",{"direction":direction_out},200);
+						});
+					});
 			
 				return false;
 			});
@@ -74,11 +138,18 @@
 		});
 	</script>
 	
+
 	
+	<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/token-input.css" />
+	
+
 	
 	
 	<script language="JavaScript">
-	$(document).ready(enable);
+	$(document).ready(function(){
+		$('table.sortable').dataTable();
+	});
 	</script>
 
 	<!-- <script>

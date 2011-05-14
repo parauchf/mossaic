@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
+<h2 id="title" class="path"> <a href="/projects/{{community.projects.id}}">{{community.project.name}}</a>/
+<a href="/projects/{{community.projects.id}}/communities">communities</a>/{{community.name}}</h2>
 
 {% block content %}
 <h2 id="title" class="title-stripe"> {{project.name}}: {{community.name}}</h2>
 <ul class="tabs">
-	<li><a href="/projects/{{project.id}}/general">01. General</a></li>
-    <li><a href="/projects/{{project.id}}/attachments">02. Attachments</a></li>
-	<li><a href="/projects/{{project.id}}/observations">03. Observations</a></li>
+	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/administration">Administration</a></li>
+    <li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/attachments">Attachments</a></li>
+	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/observations">Observations</a></li>
+	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/survey">Survey</a></li>
+	
 </ul>
 <div id="tab-container">
 {% block tabcontent %}

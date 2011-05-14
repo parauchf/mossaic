@@ -1,0 +1,36 @@
+{% extends "communityBase.html" %}
+
+{% block tabcontent %}
+
+<div id="tab-content">
+
+	
+	<table cellpadding="0" cellspacing="0" border="0" class="display grad sortable" width="100%" align="center">
+       	<thead>
+			<tr>
+				<th width="10%">ID</th>
+				<th width="25%">Community</th>
+				<th width="25%">Metric</th>
+				<th width="25%">User</th>
+				<th width="15%">Date</th>
+				</tr>
+		</thead>
+		
+		
+		<tbody>
+			{% for observation in observations %}
+			<tr>
+				<td><a href="/projects/{{project.id}}/observations/{{observation.id}}/">{{observation.id}}</a></td>
+				<td><a href="/metrics/{{observation.community.id}}">{{observation.community}}</a></td>
+				<td><a href="/metrics/{{observation.metric.id}}">{{observation.metric}}</a></td>
+				<td>{{observation.user}}</td>
+				<td>{{observation.timestamp|date:"m/d/Y H:m"|lower }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+
+{% endblock %}
