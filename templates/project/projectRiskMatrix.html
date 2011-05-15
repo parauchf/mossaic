@@ -1,0 +1,58 @@
+{% extends "projectBase.html" %}
+
+
+{% block tabcontent %}
+
+<div id="tab-content">
+
+	<div id="actions" class="stripe">
+		
+	</div>
+	
+	<table cellpadding="0" cellspacing="0" border="0" class="display grad sortable" width="100%" align="center">
+       	<thead>
+			<tr>
+			<th>Community</th>
+			{% for model in models%}
+			<th>{{ model.name }}</th>
+			{% endfor %}	
+			</tr>
+		</thead>
+		
+		
+		<tbody>
+			{% regroup scores by community as model_list %}
+			
+			{% for community in model_list%}
+			<tr>
+			<td><a href="{% url communities.views.survey community_id=community.grouper.id project_id=project.id %}">{{ community.grouper }}</a></td>
+				{% for item in community.list %}
+				<td> 
+					
+
+					{% if item.score %}
+					
+					{% else %}
+					N/A
+					{% endif %}
+					
+					{% if item.score %}
+					<span class="risk-outer">
+					<span class="risk-bar" style="width: {% widthratio item.score  item.max 90 %}%;"> 
+						{{ item.score|floatformat:2 }}	
+					</span>
+					</span>
+					{% endif %}
+					
+				</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+			
+		</tbody>
+	</table>
+</div>
+
+
+
+{% endblock %}

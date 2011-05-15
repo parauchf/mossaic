@@ -1,0 +1,26 @@
+{% extends "modelBase.html" %}
+
+{% block tabcontent %}
+
+<div id="tab-content">
+	<div id="actions" class="stripe">
+		<a id="add-user" href="add-user"><img width="10px" height="10px" src="/static/img/admin/icon_addlink.gif"/>Add User</a>
+		<a id="save" href="save"><img width="10px" height="10px" src="/static/img/admin/icon-yes.gif"/> Save Changes</a>
+	</div>
+	 <table cellpadding="0" cellspacing="0" border="0" class="display grad sortable" width="100%" align="center">
+       	<thead>
+			<tr><th>Name</th>
+			<th>Date</th>
+			
+		</thead>
+		<tbody>
+			{% for riskModel in riskModels %}
+			<tr>
+				<td><a href="/models/{{riskModel.id}}">{{riskModel.name}}</a>
+				<td>Date Created</td></tr>
+			{% endfor %}
+		</tbody>
+       </table>
+</div>
+
+{% endblock %}

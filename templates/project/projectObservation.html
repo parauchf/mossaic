@@ -1,0 +1,24 @@
+{% extends "projectBase.html" %}
+
+
+{% block tabcontent %}
+
+<div id="tab-content">
+
+<form method="post" action="">{% csrf_token %}
+
+<div class="bubble-form">
+<table class="display grad">
+	<tr>
+		<td>Metric</td>
+		<td>{{observation.metric}}</td>
+		<td></td>
+		<td>Notes</td>
+	</tr>
+</table>
+</div>
+
+</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "communityBase.html" %}
+
+{% block tabcontent %}
+
+
+
+<div id="tab-content">
+	<div id="actions" class="stripe">
+	</div>
+	
+	<form method="post" action="/projects/{{project.id}}/communities/{{community.id}}/survey" >
+	{% csrf_token %}
+	<table cellpadding="0" cellspacing="0" border="0" class="display grad" id="" width="100%" align="center">
+       	<thead>
+			<tr>
+				<th>Metric</th>
+				<th>Response</th>
+			</tr>
+		</thead>
+		
+		
+		
+		{% for form in forms %}
+		<tr>
+			<td>{{ form.title }} {{ form.id }} {{ form.errors }}</td>
+			<td>
+				{% if form.type == 'M' %}
+					{{ form.mcValue }}
+					{{ form.mcValue.errors }}
+				{% endif %}
+				{% if form.type == 'D' %}
+					{{ form.value }}
+					{{ form.value.errors }}
+				{% endif %}
+				{{ form.community }}
+				{{ form.metric }}
+				{{ form.user }}
+				{{ form.timestamp }}
+			</td>
+		</tr>
+		{% endfor %}
+		
+	</table>
+	<div class="stripe">
+	<input type="submit" value="Save entries">
+	</div>
+	</form>
+</div>
+
+
+
+{% endblock %}

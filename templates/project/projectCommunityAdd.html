@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<div class="action-panel" id="action-panel">
+<form action="/projects/{{project.id}}/communities/add" method="post">
+	{% csrf_token %}
+	{{ form.project }}
+	{{ form.location }}
+	<table>
+		<tr>
+			<td><b>Name</b></td>
+			<td>{{ form.name }}</td> 
+		</tr>
+		<tr>
+			<td><b>Description</b></td>
+			<td>{{ form.description }}</td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit"></td>
+		</tr>
+	</table>
+</form>
+</div>
+
+{% endblock %}

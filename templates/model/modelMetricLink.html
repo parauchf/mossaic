@@ -1,0 +1,21 @@
+{% extends "modelBase.html" %}
+
+
+{% block tabcontent %}
+
+
+<div id="tab-content">
+
+<form method="post" action="">
+
+{% csrf_token %}
+{{ for link in links.forms }}
+<td>{{ link.instance.metric.name }}</td>
+{{ for formset in link.nested }}
+{{ formset.as_table }}
+{{ endfor }}
+{% endfor %}
+</table>
+</form>
+
+{% endblock %}

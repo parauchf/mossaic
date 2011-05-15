@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+
+
+
+<div class="action-panel" id="action-panel">
+	<form action="/projects/{{project.id}}/models/new" method="post">
+		<table><tr>
+			{% csrf_token %}
+			<td>{{ form.project_name }}</td> 
+			<td><input type="submit" value="Submit"></td>
+		</tr></table>
+	</form>
+</div>
+
+{% endblock %}

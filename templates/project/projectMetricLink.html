@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="action-panel" id="action-panel">
+	<form action="/projects/{{project.id}}/models/{{model.id}}/add-metric" method="post">
+		<table><tr>
+			{% csrf_token %}
+			<td>{{ form.new_links }}</td> 
+			<td><input type="submit" value="Submit"></td>
+		</tr></table>
+	</form>
+</div>
+
+{% endblock %}

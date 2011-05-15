@@ -1,0 +1,33 @@
+{% extends "projectBase.html" %}
+
+{% block tabcontent %}
+
+<div id="tab-content">
+	<div id="actions" class="stripe">
+
+		<a class="a-ctl inactive inline" href="/projects/{{project.id}}/models/new" id="add-model"><span class="org-inv">&#x270e;</span>Add new model</a>
+
+	</div>
+	
+	<div id="action-panel" class="actions-panel">
+		
+	</div>
+	
+	
+	 <table cellpadding="0" cellspacing="0" border="0" class="display grad sortable" width="100%" align="center">
+       	<thead>
+			<tr><th>Name</th>
+			<th>Date</th>
+			
+		</thead>
+		<tbody>
+			{% for riskModel in riskModels %}
+			<tr>
+				<td><a href="/projects/{{project.id}}/models/{{riskModel.id}}">{{riskModel.name}}</a>
+				<td>Date Created</td></tr>
+			{% endfor %}
+		</tbody>
+       </table>
+</div>
+
+{% endblock %}
