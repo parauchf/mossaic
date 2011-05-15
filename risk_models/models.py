@@ -68,7 +68,7 @@ class MCScore(models.Model):
 class Observation(models.Model):
 	community = models.ForeignKey('communities.Community')
 	metric = models.ForeignKey('risk_models.Metric')
-	user = models.ForeignKey('users.MossaicUser')
+	user = models.ForeignKey('users.MossaicUser',null=True,blank=True)
 	timestamp = models.DateTimeField(auto_now=True)
 	
 	value = models.DecimalField(max_digits=19,decimal_places=10,blank=True,null=True)
@@ -92,31 +92,43 @@ class ModelMetricLink(models.Model):
 	
 	duplicateValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES,default="A")
 	
-	# def eval(self,community):
-	# 	observations = Observation.objects.filter(community__id__exact=community.id,metric__id__exact=metric.id)
-	# 	nobs = observations.count()
-	# 	
-	# 	if nobs == 1:
-	# 		if metric.metricType == "M":
-	# 			return observations[1].mcValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[1].score
-	# 		elif metric.metricType == "D":
-	# 			return observations[1].value * weight
-	# 	elif nobs == 0:
-	# 		if metric.missingValuePolicy == 'D':
-	# 			if metric.metricType == 'M':
-	# 				return self.defaulMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id).score
-	# 			elif metric.metricType == 'D':
-	# 				return self.defaultDecimalValue
-	# 		elif metric.missingValuePolicy == 'I':
-	# 			return 0
-	# 	elif nobs > 1:
-	# 		if metric.metricType == 'M':
-	# 			if metric.duplicateValuePolicy == 'A':
-	# 				avg_obs = Observation.objects.filter(community__id__exact=community.id,metric__id__exact=metric.id)
-	# 				vals=[]
-	# 				for obs in avg_obs:
-	# 					vals.append(obs.mcValue.mcscore_set(modelMetricLink__id__exact=self.id)[1].score)
-	# 				return sum(vals)/len(vals)
+	def eval(self,community):
+		observations = Observation.objects.filter(community__id__exact=community.id,metric__id__exact=self.metric.id)
+		nobs = observations.count()
+		
+		if nobs == 1:
+			if self.metric.metricType == "M":
+				return observations[0].mcValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
+			else: #if self.metric.metricType == "D":
+				return observations[0].value
+		
+		elif nobs == 0:
+			if self.missingValuePolicy == 'D':
+				if self.metric.metricType == 'M':
+					return self.defaulMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
+				elif self.metric.metricType == 'D':
+					return self.defaultDecimalValue
+			else: # metric.missingValuePolicy == 'I':
+				return None
+		
+		elif nobs > 1:
+			if self.metric.metricType == 'M':
+				if self.duplicateValuePolicy == 'A':
+					return self.defaultMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
+				if self.duplicateValuePolicy == 'D':
+					return self.defaultMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
+			if self.metric.metricType == 'D':
+				if self.duplicateValuePolicy == 'A':
+					total = 0
+					for obs in observations:
+						total += obs.value
+					return total / nobs
+				elif self.duplicateValuePolicy == 'D':
+					return self.defaultDecimalValue
+				else:
+					return None
+					
+		return -1
 		
 	
 	def save(self, *args, **kwargs):
@@ -140,17 +152,20 @@ class RiskModel(models.Model):
 	# version = models.IntegerField(editable=False)
 	
 	metrics = models.ManyToManyField('Metric',through=ModelMetricLink)
-	
+
 	def __unicode__(self):
 		return self.name
 	
-	# def eval(self,community):
-	# 	observations = Observation.objects.filter(community__id__exact=community.id)
-	# 	
-	# 	for metric in metrics:
-	# 		observations = Observation.objects.filter(community__id__exact=community.id,metric__id__exact=metric.id)
-	# 	
-	# 	return 0
+	def eval(self,community):
+		total = 0
+		for mml in RiskModel.objects.get(pk=self.id).modelmetriclink_set.all():
+			score = mml.eval(community)
+			if score is None:
+				return None
+			else:
+				total += score
+		
+		return total
 				
 
 class RiskModelForm(ModelForm):

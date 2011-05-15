@@ -62,6 +62,10 @@
 			});
 		}
 		
+		function enable_tables(){
+			$('table.sortable').dataTable();
+		}
+		
 		function enable_tokens(){
 			$(".tokenized").each(function(){
 				var query_url = '/' + $(this).attr('class').match(/ajaxurl-([\w-]+)/)[1].replace("-","/");
@@ -94,6 +98,8 @@
 	<script language="JavaScript">
 		$(document).ready(function(){
 			enable_action_tabs();
+			enable_tables();
+			updateOptionsPane();
 		});
 	</script>
 	
@@ -120,14 +126,15 @@
 				//get the uri of the referenced page part
 				var url = $(this).children("a").attr("href") + " #tab-content";
 				
-				$(".tabs li").removeClass("active");
-				$(this).addClass("active");
+				$(".tabs li.active").addClass("inactive").removeClass("active");
+				$(this).removeClass("inactive").addClass("active");
 				
 				
 				$("#tab-container").
 					hide("slide",{"direction":direction_in},200,function(){
 						$(this).load(url,function(){
 							enable_action_tabs();
+							enable_tables();
 							$("#tab-container").show("slide",{"direction":direction_out},200);
 						});
 					});
@@ -143,25 +150,34 @@
 	<script type="text/javascript" src="/static/js/jquery.tokeninput.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/token-input.css" />
 	
-
 	
 	
-	<script language="JavaScript">
-	$(document).ready(function(){
-		$('table.sortable').dataTable();
-	});
-	</script>
+	<script>
+	$(document).ready(function() {
+		$('.choice-row').hide();
 
-	<!-- <script>
-		$(function() {
-			$( "#orderable-options" ).sortable({
-				// placeholder: "ui-state-highlight"
-			});
-			$( "#orderable-options" ).disableSelection();
+		var rightArrow=String.fromCharCode(0x25b6);
+		var downArrow=String.fromCharCode(0x25bc);
+
+		$('.group-arrow').click(function(){
+			if($(this).text() == rightArrow){
+				$(this).parents('tbody').children('.choice-row').show();
+				$(this).text(downArrow)
+			}
+			else{
+				$(this).parents('tbody').children('.choice-row').hide();
+				$(this).text(rightArrow);
+			}
+			return false;
 		});
-	</script> -->
+
+
+	});
+
+	</script>
 	
 	
+
 	
 </head>
 <body>

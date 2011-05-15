@@ -16,9 +16,9 @@ from django.core.context_processors import csrf
 from django.shortcuts import render_to_response
 from django.core import serializers
 
-from projects.models import Project, Membership
-from communities.models import Community
-from users.models import MossaicUser
+from projects.models import *
+from communities.models import *
+from users.models import *
 
 from risk_models.models import *
 from risk_models.forms import *
@@ -71,7 +71,8 @@ def metric(request,metric_id=0,project_id=0,is_new=False, *args, **kwargs):
 		'options': formset,
 		'project': project,
 		'model': model,
-		'is_new': is_new
+		'is_new': is_new,
+		'request': request
 	})
 	return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
 
@@ -90,7 +91,8 @@ def riskModelNew(request,project_id=0):
 		
 	context = RequestContext(request,{
 		'form': form,
-		'project': project
+		'project': project,
+		'request': request
 	})
 	return render_to_response('modelRiskModelNew.html',context,context_instance=RequestContext(request))
 
@@ -113,7 +115,9 @@ def riskModel(request,riskModel_id=0,project_id=0,is_new=False, *args, **kwargs)
 	context = RequestContext(request,{
 		'model': riskModel,
 		'link_forms': form,
-		'project': project
+		'project': project,
+		'request': request,
+		'active_tab': 'risk_model'
 	})
 	return render_to_response('modelRiskModel.html',context,context_instance=RequestContext(request))
 
@@ -143,7 +147,8 @@ def metricLinkNew(request,riskModel_id=0,project_id=0,*args, **kwargs):
 	context = RequestContext(request,{
 		'model': riskModel,
 		'form': form,
-		'project': project
+		'project': project,
+		'request': request
 	})	
 	return render_to_response('projectMetricLink.html',context,context_instance=RequestContext(request))
 	

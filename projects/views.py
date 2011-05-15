@@ -44,7 +44,9 @@ def userList(request,project_id):
 		context = RequestContext(request,{
 			'project': project,
 			'users': users,
-			'form': form
+			'form': form,
+			'request': request,
+			'active_tab': 'users'
 		})
 		
 		return render_to_response('projectUsers.html',context,context_instance=RequestContext(request))
@@ -74,7 +76,8 @@ def userAdd(request,project_id):
 		form = NewUserForm()
 		context = RequestContext(request,{
 			'project': project,
-			'form': form
+			'form': form,
+			'request': request,
 		})
 		return render_to_response('projectUserAdd.html',context,context_instance=RequestContext(request))
 
@@ -91,7 +94,9 @@ def communityList(request,project_id):
 		context = RequestContext(request,{
 			'project': project,
 			'communities': communities,
-			'form': form
+			'form': form,
+			'request': request,
+			'active_tab': 'communities'
 		})
 		
 		return render_to_response('projectCommunityList.html',context,context_instance=RequestContext(request))
@@ -109,17 +114,48 @@ def communityAdd(request,project_id=0):
 			form.save()
 
 		return HttpResponseRedirect("/projects/{0}/communities".format(project_id))
-
+	
 	else:
 		form = CommunityForm({'project':project_id})
 		context = RequestContext(request,{
 			'project': project,
-			'form': form
+			'form': form,
+			'request': request,
 		})
 		return render_to_response('projectCommunityAdd.html',context,context_instance=RequestContext(request))
 
+
 def riskMatrix(request,project_id):
-	return render_to_response('projectAdministration.html',{'project_id':project_id})
+	if request.method == "GET":
+		project = Project.objects.get(pk=project_id)
+		communities = Community.objects.filter(project__id__exact=project.id)
+		riskModels = RiskModel.objects.filter(project__id__exact=project.id)
+		
+		
+		score = {}
+		maxValue = {}
+		for riskModel in riskModels:
+			score[riskModel.id] = {}
+			for community in communities:
+				score[riskModel.id][community.id] = riskModel.eval(community)
+		
+		for riskModel in riskModels:
+			maxValue[riskModel.id] = max(score[riskModel.id].values())
+		
+		
+		scores = [ {'community': community, 'model': riskModel, 'score': score[riskModel.id][community.id], 'max': maxValue[riskModel.id] } 
+					for community in communities for riskModel in riskModels ]
+		
+		
+		
+		context = RequestContext(request,{
+			'scores': scores,
+			'models': riskModels,
+			'project': project,
+			'active_tab': 'risk_matrix'
+		})
+	
+	return render_to_response('projectRiskMatrix.html',context,context_instance=RequestContext(request))
 
 def administration(request,project_id):
 	return render_to_response('projectAdministration.html',{'project_id':project_id})
@@ -141,7 +177,9 @@ def observationList(request,project_id):
 	
 	context = RequestContext(request,{
 		'project': project,
-		'observations': observations
+		'observations': observations,
+		'request': request,
+		'active_tab': 'observations'
 	})
 
 	return render_to_response('projectObservationList.html',context,context_instance=RequestContext(request))
@@ -156,7 +194,9 @@ def metricList(request,project_id=0):
 	
 	context = RequestContext(request,{
 		'metrics': metrics,
-		'project': project
+		'project': project,
+		'request': request,
+		'active_tab': 'metrics'
 	})
 
 	return render_to_response('projectMetricList.html',context,context_instance=RequestContext(request))
@@ -170,7 +210,9 @@ def riskModelList(request,project_id):
 	
 	context = RequestContext(request,{
 		'riskModels': models,
-		'project': project
+		'project': project,
+		'request': request,
+		'active_tab': 'risk_models'
 	})
 
 	return render_to_response('projectRiskModelList.html',context,context_instance=RequestContext(request))

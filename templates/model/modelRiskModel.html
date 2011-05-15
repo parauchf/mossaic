@@ -6,35 +6,9 @@
 {% block tabcontent %}
 
 
-<script>
-$(document).ready(function() {
-	$('.choice-row').hide();
-
-	var rightArrow=String.fromCharCode(0x25b6);
-	var downArrow=String.fromCharCode(0x25bc);
-	
-	$('.group-arrow').click(function(){
-		if($(this).text() == rightArrow){
-			$(this).parents('tbody').children('.choice-row').show();
-			$(this).text(downArrow)
-		}
-		else{
-			$(this).parents('tbody').children('.choice-row').hide();
-			$(this).text(rightArrow);
-		}
-		return false;
-	});
-	
-
-});
-
-</script>
-
-
-
-
-
 <div id="tab-content">
+
+
 
 
 <form method="post" action="">
@@ -53,12 +27,13 @@ $(document).ready(function() {
 
 <table class="display grad">
 <thead>
-	<th width="5%"></th>
-	<th width="19%">Metric</th>
-	<th width="19%">Weight/Score</th>
-	<th width="19%">Transformation</th>
-	<th width="19%">Duplicate Policy</th>
-	<th width="19%">Missing Policy</th>
+	<th width="6%"> </th>
+	<th width="30%">Metric</th>
+	<th width="13%">Weight/Score</th>
+	<th width="13%">Transformation</th>
+	<th width="13%">Default Value</th>
+	<th width="13%">Duplicate Policy</th>
+	<th width="13%">Missing Policy</th>
 </thead>
 <tbody>
 	
@@ -85,9 +60,18 @@ $(document).ready(function() {
 			{{ link.transformation.errors }}{{ link.transformation}} 
 			{% endif %}	
 		</td>
-		
-		<td>{{ link.duplicateValuePolicy.errors }}{{ link.duplicateValuePolicy}} </td>
-		<td>{{ link.missingValuePolicy.errors }}{{ link.missingValuePolicy }}</td>
+		<td>
+			{% if link.instance.metric.metricType == "D" %}
+			{{ link.default.errors }}{{ link.defaultDecimalValue }} 
+			{% endif %}
+			{% if link.instance.metric.metricType == "M" %}
+			{{ link.defaultMCValue }} 
+			{% endif %}
+		</td>
+		<td>
+			{{ link.duplicateValuePolicy.errors }}{{ link.duplicateValuePolicy}} 
+		</td>
+		<td>{{ link.missingValuePolicy }}</td>
 	</tr>
 	
 	{% if link.instance.metric.metricType == "M" %}
@@ -98,6 +82,10 @@ $(document).ready(function() {
 		<td>{{ choice.id }} - {{ choice.instance.option }}</td>
 		<td>{{ choice.score }}{{ choice.option }}{{ choice.modelMetricLink }}</td>
 		<td></td>
+		<td>
+		{% if link.instance.metric.metricType == "M" %}
+		{% endif %}
+		</td>
 		<td></td>
 		<td></td>
 	</tr>
@@ -110,7 +98,7 @@ $(document).ready(function() {
 </table>
 
 
-<div id="submit-container" class="stripe">
+<div id="submit-container" class="submit-stripe">
 <input type="submit" value="Save changes">
 </div>
 </form>

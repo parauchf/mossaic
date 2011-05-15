@@ -4,13 +4,27 @@
 <a href="/projects/{{community.projects.id}}/communities">communities</a>/{{community.name}}</h2>
 
 {% block content %}
-<h2 id="title" class="title-stripe"> {{project.name}}: {{community.name}}</h2>
+
+{% load tab_tags %}
+
+<h3 id="title" class="title-stripe"> 
+	<a href="/projects/{{project.id}}" class="bread-crumb">{{project.name}}</a> /
+	<a href="/projects/{{project.id}}/communities" class="bread-crumb">Communities</a> /
+	<a href="#"class="bread-crumb">{{community.name}}</a>
+</h3>
 <ul class="tabs">
-	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/administration">Administration</a></li>
-    <li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/attachments">Attachments</a></li>
-	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/observations">Observations</a></li>
-	<li><a href="/projects/{{community.project.id}}/communities/{{community.id}}/survey">Survey</a></li>
-	
+	<!-- <li class="{% ifequal active_tab "administration" %}active{% endifequal %}"> 
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/administration"> 
+			Administration</a></li>
+    <li class="{% ifequal active_tab "attachments" %}active{% endifequal %}"> 
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/attachments">
+			Attachments</a></li> -->
+	<li class="{% ifequal active_tab "observations" %}active{% endifequal %}">
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/observations">
+			Observations</a></li>
+	<li class="{% ifequal active_tab "survey" %}active{% endifequal %}">
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/survey">
+			Survey</a></li>
 </ul>
 <div id="tab-container">
 {% block tabcontent %}

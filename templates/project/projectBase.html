@@ -6,15 +6,22 @@
 <h2 id="title" class="path"> {{project.name}}</h2>
 
 <ul class="tabs yellow">
-	<li><a href="/projects/{{project.id}}/admin">Administration</a></li>
-    <li><a href="/projects/{{project.id}}/metrics">Metrics</a></li>
-    <li><a href="/projects/{{project.id}}/observations">Observations</a></li>
-	<li><a href="/projects/{{project.id}}/models">Risk Models</a></li>
-	<li><a href="/projects/{{project.id}}/communities">Communities</a></li>
-    <li><a href="/projects/{{project.id}}/users">Users</a></li>
- 	<li><a href="/projects/{{project.id}}/risk">Risk Matrix</a></li>
-	<li><a href="/projects/{{project.id}}/map">Map View</a></li>
-	
+	<li class="{% if active_tab == "administration" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/admin">Administration</a></li>
+    <li class="{% if active_tab == "metrics" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/metrics">Metrics</a></li>
+    <li class="{% if active_tab == "observations" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/observations">Observations</a></li>
+	<li class="{% if active_tab == "risk_models" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/models">Risk Models</a></li>
+	<li class="{% if active_tab == "communities" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/communities">Communities</a></li>
+    <li class="{% if active_tab == "users" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/users">Users</a></li>
+ 	<li class="{% if active_tab == "risk_matrix" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/risk">Risk Matrix</a></li>
+	<li class="{% if active_tab == "map_view" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{project.id}}/map">Map View</a></li>
 </ul>
 
 <div id="tab-container">

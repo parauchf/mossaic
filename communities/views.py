@@ -19,6 +19,8 @@ from communities.forms import *
 
 from django.http import Http404
 
+@csrf_protect
+@login_required
 
 def survey(request,community_id,project_id):
 	try:
@@ -26,28 +28,42 @@ def survey(request,community_id,project_id):
 		project = Project.objects.get(pk=project_id)
 	except:
 		raise Http404
-	
-	
-	
 
-	if request.method == "POST":
-		form = SurveyForm(request.POST,community=community)
-		if form.is_valid():
-			form.save()
-			HttpResponseRedirect("/projects/%s/communities/%s/observations" % (project.id,community.id) )
-	else:
-		form = SurveyForm(community=community)
+	metrics = Metric.objects.filter(project__id__exact=community.project.id)
+	forms = []
+	
+	for metric in metrics:
+		if request.method == "POST":
+			form = SurveyItem(request.POST, request=request, prefix = 'S-M%s-C%s' % (metric.pk,community.pk))
+			if form.is_filled:
+				if form.is_valid():
+					form.save()
+		else:
+			form = SurveyItem(request=request, prefix = 'S-M%s-C%s' % (metric.pk,community.pk),initial={'metric': metric.id, 'community': community.id} )
 		
+		form.title = metric.name
+		form.type = metric.metricType
+		form.fields["mcValue"].queryset = MCOption.objects.filter(metric__id__exact=metric.id)
+		
+		forms.append(form)
+		
+		
+	if request.method == "POST":		
+		return HttpResponseRedirect("/projects/%s/communities/%s/observations" % (project.id,community.id) )
+	
+	
 	context = RequestContext(request,{
 		'community': community,
-		'form': form,
-		'project': project
+		'forms': forms,
+		'project': project,
+		'request': request,
+		'active_tab': 'survey'
 	})
 	return render_to_response('communitySurvey.html',context,context_instance=RequestContext(request))
 	
 		
 def observations(request,community_id,project_id):
-	if request.method=="GET":
+	if request.method == "GET":
 		try:
 			community = Community.objects.get(pk=community_id)
 			project = Project.objects.get(pk=project_id)
@@ -59,7 +75,9 @@ def observations(request,community_id,project_id):
 		context = RequestContext(request,{
 			'observations': observations,
 			'community': community,
-			'project': project
+			'project': project,
+			'request': request,
+			'active_tab': 'observations'
 		})
 		return render_to_response('communityObservations.html',context,context_instance=RequestContext(request))
 
@@ -73,6 +91,8 @@ def administration(request,community_id):
 
 		context = RequestContext(request,{
 			'community': community,
+			'request': request,
+			'active_tab': 'administration'
 		})
 
 		return render_to_response('projectCommunityList.html',context,context_instance=RequestContext(request))

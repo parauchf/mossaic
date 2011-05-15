@@ -13,7 +13,7 @@ body{
 	font-size:48px;
 	float: left;
 	width: 150px;
-	height:68px;
+	height: 68px;
 	background-image: url(/static/img/logo.png);
 	display: block;
 }
@@ -28,10 +28,10 @@ body{
 }
 
 #content{
-	padding: 0px;
+	padding: 5px;
 	margin: 0px;
 	background: #FFF;
-	min-height: 600px;
+	min-height: 650px;
 }
 
 #header{
@@ -53,14 +53,19 @@ body{
 	color: #666;
 }
 
-.path a{
-	color: #666;
-	text-decoration: none;
-	
-}
 
 .path a:hover{
 	color: #559955;
+	text-decoration: underline;
+}
+
+a{
+	color: #666;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #cc6666;
 	text-decoration: underline;
 }
 
@@ -68,22 +73,40 @@ body{
 
 .risk-bar{
 	background: #cf7979;
-	display: block-inline;
+	opacity: 0.8;
+	display: block;
 	height: 15px;
-	float: left;
 	color: #000000 !important;
-	border: 1px solid #666;
-	font-weight: bolder !important;
-	font-size: 16px !important;
-	font: 14px "Helvetica", sans-serif !important;
+
+	border-right: 1px solid #666;
+	
+	padding: 2px 4px;
+	margin: 0px;
+}
+
+.risk-outer{
+	display: block;
+	border-left:1px solid #666;
+	width: 90%;
+	margin: 0px;
 	padding: 0px;
-	margin: 0px 4px 0px 0px;
+}
+
+
+.risk-number{
+	background: #efefef;
+	border: 1px solid #cc6666;
+	-webkit-border-radius: 3px;
+	min-width: 20px;
+	text-align: right;
+	display: block-inline;
+	padding: 1px;
 }
 
 /*============================ TABS ============================*/
 ul.tabs{
 	height: 25px;
-	padding: 0px;
+	padding: 0px 5px;
 	margin: 0px 0px 6px 0px;
 	background: #D6D6C1;
 	
@@ -118,11 +141,11 @@ ul.tabs{
 	padding: 3px 6px;
 }
 
-.tabs li:hover{
-	background: #ee8888;
+.tabs li.inactive:hover{
+	background: #cf7979;
 }
 
-.tabs a:hover{
+.tabs li.inactive a:hover{
 /*	text-decoration: underline;*/
 	
 	color: #FFFFFF;
@@ -141,8 +164,8 @@ input[type="submit"]{
 	    linear,
 	    left bottom,
 	    left top,
-	    color-stop(0.01, rgb(245,245,245)),
-	    color-stop(0.51, rgb(212,212,212))
+	    color-stop(0.3, rgb(245,245,245)),
+	    color-stop(0.2, rgb(212,212,212))
 	);
 	background-image: -moz-linear-gradient(
 	    center bottom,
@@ -160,6 +183,7 @@ select{
 	border: 1px solid #666;
 	height: 20px;
 	background: #f5f5f5;
+	outline-width:0;
 }
 
 select:hover{
@@ -171,6 +195,10 @@ input[type="text"]{
 	border: 1px solid #666;
 	padding: 3px 4px;
 	outline-width:0;
+}
+
+.display input{
+		width: 80px;
 }
 
 input[type="text"]:hover{
@@ -196,7 +224,7 @@ input[type="text"]:hover{
 
 .option-wrapper{
 	display: block;
-	border: 1px solid #DDD;
+	border: 1px solid #666;
 	background: #FFF;
 	padding: 1px 4px;
 }
@@ -211,9 +239,6 @@ a.rm-inline:hover{
 	color: #666;
 }
 
-.blue{
-	border: 1px solid blue;
-}
 
 /****************************************************************************/
 /* DATATABLES STUFF */
@@ -296,22 +321,26 @@ table.display thead th div.DataTables_sort_wrapper span {
 .dataTables_length {
 	width: 40%;
 	float: left;
+	padding: 5px 5px;
 }
 
 .dataTables_filter {
 	width: 50%;
 	float: right;
 	text-align: right;
+	padding: 5px 5px;
 }
 
 .dataTables_info {
 	width: 50%;
 	float: left;
+	padding: 5px 5px;
 }
 
 .dataTables_paginate {
 	float: right;
 	text-align: right;
+	padding: 5px 5px;
 }
 
 .paginate_disabled_previous, .paginate_enabled_previous, .paginate_disabled_next, .paginate_enabled_next {
@@ -337,10 +366,12 @@ table.display thead th div.DataTables_sort_wrapper span {
 
 .paging_full_numbers{
 	margin: 5px;
+	padding: 5px 0px;
 }
 
 .datatables_info{
 	margin: 5px;
+	padding: 5px 0px;
 }
 
 table.display {
@@ -376,6 +407,11 @@ table.display td.center {
 .monospace{
 	font-family: "Courier New", Courier, monospace !important;
 }
+
+.dataTables_wrapper{
+	margin: 15px 0px;	
+}
+
 
 /****************************************************************************/
 /*CUSTOM DATATABLES STUFF */
@@ -420,7 +456,7 @@ table.display tr.choice-row{
 
 
 table.display{
-	margin: 3px auto;
+	margin: 4px 0px;
 	width: 100%;
 	clear: both;
 	border-collapse: collapse;
@@ -458,9 +494,11 @@ table.display {font: 12px "Helvetica", sans-serif;}
 	font-weight: bolder;
 	text-decoration: none;
 	padding: 2px 6px;
-	margin: 5px 1px;
+	margin: 5px 4px;
 	background: none;
-	cursor: pointer;	
+	cursor: pointer;
+	text-decoration: none !important
+	
 }
 
 .a-ctl.inactive:hover{
@@ -468,20 +506,31 @@ table.display {font: 12px "Helvetica", sans-serif;}
 	color: #FFFFFF;
 	background: #ee8888;
 	-webkit-border-radius: 10px;
-/*	background: #775577;*/	
+/*	background: #775577;*/
+
 }
 .a-ctl.active{
 	-webkit-border-radius: 10px 10px 0px 0px;
 	background: #DDE8E8;
+	
 }
 
 .a-ctl:hover .org-inv{
-	color: #FFF;
+	color: #FFF;;
 }
 
 .stripe{
 	background: #F6F6F6;
-	padding: 2px;
+	padding: 0px;
+	min-height: 14px;
+}
+
+.submit-stripe{
+	background: #F6F6F6;
+	border: 1px solid #ddd;
+	padding: 3px 6px;
+	min-height: 14px;
+	text-align: right;
 }
 
 .actions-panel{
@@ -489,6 +538,7 @@ table.display {font: 12px "Helvetica", sans-serif;}
 	background: #DDE8E8;
 	padding: 5px;
 	display: none;
+	margin: 0px 0px;
 }
 
 .metric-disp{
