@@ -1,6 +1,6 @@
 [
 {% for user in users %}
-{"id": "{{user.pk}}","name":"{{user.username}}"} 
 {% if not forloop.first %},{% endif %}
+{"id": "{{user.pk}}","name":"{{user.username}}"} 
 {% endfor %}
 ]

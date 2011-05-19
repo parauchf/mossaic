@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<h2 id="title" class="path"> {{project.name}}</h2>
+<h3 id="title" > / <a href="{% url projects.views.projectIndex %}">Projects</a> / <a href="#"> {{project.name}} </a></h3>
 
-<ul class="tabs yellow">
+<ul class="tabs">
 	<li class="{% if active_tab == "administration" %}active{% else %}inactive{% endif %}">
 		<a href="/projects/{{project.id}}/admin">Administration</a></li>
     <li class="{% if active_tab == "metrics" %}active{% else %}inactive{% endif %}">
@@ -21,7 +21,7 @@
  	<li class="{% if active_tab == "risk_matrix" %}active{% else %}inactive{% endif %}">
 		<a href="/projects/{{project.id}}/risk">Risk Matrix</a></li>
 	<li class="{% if active_tab == "map_view" %}active{% else %}inactive{% endif %}">
-		<a href="/projects/{{project.id}}/map">Map View</a></li>
+		<a href="/projects/{{project.id}}/map" style="text-decoration: line-through;">Map View</a></li>
 </ul>
 
 <div id="tab-container">

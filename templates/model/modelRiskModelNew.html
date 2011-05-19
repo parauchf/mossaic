@@ -8,7 +8,8 @@
 
 
 
-<div class="action-panel" id="action-panel">
+<div class="action-inner" id="action-inner">
+<div class="form-panel green">
 	<form action="/projects/{{project.id}}/models/new" method="post">
 		<table><tr>
 			{% csrf_token %}
@@ -16,6 +17,7 @@
 			<td><input type="submit" value="Submit"></td>
 		</tr></table>
 	</form>
+</div>
 </div>
 
 {% endblock %}

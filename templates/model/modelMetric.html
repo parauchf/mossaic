@@ -18,7 +18,9 @@ new metric
 </script>
 
 
-<div class="action-panel" id="action-panel">
+<div class="action-inner" id="action-inner">
+	
+<div class="form-panel green">
 <form method="post" action="/projects/{{project.id}}/metrics/new{% if model.id %}?model={{model.id}}{% endif %}">
 {% csrf_token %}
 <table class="metric-disp">
@@ -31,7 +33,7 @@ new metric
 			<tr class="form-row"><td class="form-field">
 					{{ form.metricType }}
 			</td></tr>
-			<tr><td class="form-row"><input type="submit" value="Submit"></td></tr>
+
 		</table>
 	</td>
 	<td id="right-pane">
@@ -83,6 +85,13 @@ new metric
 </table>
 </div>
 
+<div id="submit-container" class="submit-stripe green">
+<input type="submit" value="Save changes">
+</div>
 </form>
+</div>
+
+
+
 
 {% endblock %}

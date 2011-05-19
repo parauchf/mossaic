@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 class Project(models.Model):
 	name = models.CharField(max_length=200)
 	slug = models.SlugField(max_length=50, editable=False)
-	users = models.ManyToManyField('users.MossaicUser',through='Membership')
+	users = models.ManyToManyField('users.MossaicUser',through='Membership',editable=False)
 	
 	# metrics = models.ManyToManyField('risk_models.Metric',null=True,blank=True)
 	# riskModels = models.ManyToManyField('risk_models.RiskModel',null=True,blank=True)

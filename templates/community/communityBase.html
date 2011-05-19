@@ -5,26 +5,29 @@
 
 {% block content %}
 
-{% load tab_tags %}
-
 <h3 id="title" class="title-stripe"> 
+	/ <a href="/projects/" class="bread-crumb">Projects </a> /
 	<a href="/projects/{{project.id}}" class="bread-crumb">{{project.name}}</a> /
 	<a href="/projects/{{project.id}}/communities" class="bread-crumb">Communities</a> /
 	<a href="#"class="bread-crumb">{{community.name}}</a>
 </h3>
 <ul class="tabs">
-	<!-- <li class="{% ifequal active_tab "administration" %}active{% endifequal %}"> 
-		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/administration"> 
+	<li class="{% if active_tab == "administration" %}active{% else %}inactive{% endif %}"> 
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/administration" style="text-decoration: line-through;"> 
 			Administration</a></li>
-    <li class="{% ifequal active_tab "attachments" %}active{% endifequal %}"> 
-		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/attachments">
-			Attachments</a></li> -->
-	<li class="{% ifequal active_tab "observations" %}active{% endifequal %}">
+    <li class="{% if active_tab == "attachments" %}active{% else %}inactive{% endif %}"> 
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/attachments" style="text-decoration: line-through;">
+			Attachments</a></li>
+	<li class="{% if active_tab == "notes" %}active{% else %}inactive{% endif %}">
+		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/survey" style="text-decoration: line-through;">
+			Notes</a></li>
+	<li class="{% if active_tab == "observations" %}active{% else %}inactive{% endif %}">
 		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/observations">
 			Observations</a></li>
-	<li class="{% ifequal active_tab "survey" %}active{% endifequal %}">
+	<li class="{% if active_tab == "survey" %}active{% else %}inactive{% endif %}">
 		<a href="/projects/{{community.project.id}}/communities/{{community.id}}/survey">
 			Survey</a></li>
+
 </ul>
 <div id="tab-container">
 {% block tabcontent %}

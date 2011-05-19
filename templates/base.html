@@ -42,19 +42,19 @@
 		function enable_action_tabs(){
 
 			$('.a-ctl.inline').click(function(){
-				var url = $(this).attr("href") + " #action-panel";
+				var url = $(this).attr("href") + " #action-inner";
 				
 				$('.a-ctl.active').removeClass("active").addClass("inactive");
 				$(this).removeClass("inactive");
 				$(this).addClass("active");
 
-				$("#action-panel").hide("appear",function(){
-					$("#action-panel").empty();
+				$("#action-outer").hide("fade",function(){
+					$("#action-outer").empty();
 					$(this).load(url,function(){
 						enable_tokens();
 						enable_metric_js();
 						updateOptionsPane();
-						$("#action-panel").show("appear");
+						$("#action-outer").show("fade");
 					});
 				});
 				
@@ -176,6 +176,22 @@
 
 	</script>
 	
+	<script>
+	$(document).ready(function() {
+		
+		$('.rm-inline').parents('td').find('input:checkbox').hide();
+	
+		$('.rm-inline').click(function(){
+			$(this).parents('td').find('input:checkbox').attr('checked', true);
+			$(this).parents('tbody').hide("fade");
+			return false;
+		});
+
+
+	});
+
+	</script>
+	
 	
 
 	
@@ -184,13 +200,14 @@
 <div id="container">
 	<div id="header">
 		<div id="logo"></div>
-		
-			{% if user.is_authenticated %}
-			<div class="cur-user">{{ user.username }} / <a href="/accounts/logout/">Logout</a></div>
-			{% else %}
-			<div class="cur-user">Login</div>
-			{% endif %}
 			
+		<div id="user-info">
+		{% if user.is_authenticated %}
+		<div class="cur-user">Hi {{ user.username }} / <a href="/accounts/logout/">Logout</a></div>
+		{% else %}
+		<div class="cur-user"><a href="/accounts/login/">Login</a></div>
+		{% endif %}
+		</div>
 	</div>
 
 	<div id="content">

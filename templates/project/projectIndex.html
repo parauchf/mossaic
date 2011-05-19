@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h3 id="title" > / <a href="{% url projects.views.projectIndex %}">Projects</a> / </h3>
+
+<div id="actions" class="stripe">
+	<a class="a-ctl inactive inline" href="/projects/new" id="add-project"><span class="org-inv">&#x270e;</span>Add new project</a>
+</div>
+
+<div id="action-outer" class="actions-outer">
+	
+</div>
+
+
+<table cellpadding="0" cellspacing="0" border="0" class="display grad sortable" width="100%" align="center">
+  	<thead>
+		<tr><th>Name</th>
+		<th>Privileges</th>
+		<th>Created Date</th>
+		
+	</thead>
+	<tbody>
+		{% for project in projects %}
+		<tr>
+			<td><a href="/projects/{{project.id}}/">{{project.name}}</a></td>
+			<td></td>
+			<td></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+  </table>
+
+{% endblock %}

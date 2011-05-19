@@ -95,5 +95,5 @@ def administration(request,community_id):
 			'active_tab': 'administration'
 		})
 
-		return render_to_response('projectCommunityList.html',context,context_instance=RequestContext(request))
+		return render_to_response('communitySettings.html',context,context_instance=RequestContext(request))
 

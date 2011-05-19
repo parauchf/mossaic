@@ -1,6 +1,6 @@
 [
 {% for metric in metrics %}
-{"id": "{{metric.pk}}","name":"{{metric.name}}"} 
 {% if not forloop.first %},{% endif %}
+{"id": "{{metric.pk}}","name":"{{metric.name}}"} 
 {% endfor %}
 ]

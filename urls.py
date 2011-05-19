@@ -14,13 +14,29 @@ urlpatterns = patterns('',
    	(r'^admin/static/(?P<path>.*)$','django.views.static.serve',
 		{'document_root': os.path.join(settings.PROJECT_DIR, "static/admin") }),
 
+
+	(r'^accounts/logout/?$', 'users.views.logout_view'),
+	(r'^accounts/login/?$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+	(r'^accounts/?$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+	(r'^accounts/', include('registration.backends.default.urls')),
+
 	# (r'^accounts/login/?$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
 	# (r'^accounts/logout/?$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
+	
+	
+	
 	
 	(r'^base/', 'projects.views.base'),
 	(r'^ajax/users','projects.views.ajaxUsers'),
 	(r'^ajax/metrics','risk_models.views.ajaxMetrics'),
-	# (r'^projects/?$','projects.views.projects'),
+
+	(r'^/?$','projects.views.projectIndex'),
+	(r'^projects/?$','projects.views.projectIndex'),
+	(r'^projects/(index)?/?$','projects.views.projectIndex'),
+	(r'^projects/(new|add)/?$','projects.views.projectAdd'),
+	
+	(r'^projects/(?P<project_id>\d+)/?$','projects.views.projectSettings'),
+	(r'^projects/(?P<project_id>\d+)/admin(istration)?/?$','projects.views.projectSettings'),
 	
 	(r'^projects/(?P<project_id>\d+)/communities/(?P<community_id>\d+)/?$', 'communities.views.survey'),
 	(r'^projects/(?P<project_id>\d+)/communities/(?P<community_id>\d+)/observations/?$', 'communities.views.observations'),
@@ -41,7 +57,7 @@ urlpatterns = patterns('',
 	(r'^projects/(?P<project_id>\d+)/metrics/new(-metric)?/?$', 'risk_models.views.metric',{'is_new': True}),
 	
 	(r'^projects/(?P<project_id>\d+)/models/?$', 'projects.views.riskModelList'),
-	(r'^projects/(?P<project_id>\d+)/models/(?P<riskModel_id>\d+)/?$', 'risk_models.views.riskModel',{'is_new': False}),
+	(r'^projects/(?P<project_id>\d+)/models/(?P<riskModel_id>\d+)(/edit)?/?$', 'risk_models.views.riskModel',{'is_new': False}),
 	(r'^projects/(?P<project_id>\d+)/models/(add|new)(-model)?/?$', 'risk_models.views.riskModelNew'),
 	(r'^projects/(?P<project_id>\d+)/models/(?P<riskModel_id>\d+)/(add|new)(-metric)?/?$', 'risk_models.views.metricLinkNew'),
 	
@@ -55,6 +71,6 @@ urlpatterns = patterns('',
 	# (r'^models/(?P<riskModel_id>\d+)/?', 'risk_models.views.riskModel'),
 	# (r'^models/new/?', 'risk_models.views.riskModel'),
 	
-	(r'^accounts/login', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+	
 	
 )

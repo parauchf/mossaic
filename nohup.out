@@ -1185,3 +1185,216 @@ Quit the server with CONTROL-C.
 [19/Mar/2011 13:57:52] "GET /static/img/admin/icon_addlink.gif HTTP/1.1" 200 119
 [19/Mar/2011 13:57:52] "GET /static/img/admin/icon-yes.gif HTTP/1.1" 200 299
 Terminated
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+[16/May/2011 18:49:58] "GET /projects/1/models/2 HTTP/1.1" 200 10536
+[16/May/2011 18:49:58] "GET /static/css/main.css HTTP/1.1" 304 0
+[16/May/2011 18:49:58] "GET /static/js/jquery-1.5.min.js HTTP/1.1" 304 0
+[16/May/2011 18:49:58] "GET /static/js/jquery.dataTables.min.js HTTP/1.1" 304 0
+[16/May/2011 18:49:58] "GET /static/js/jquery-ui-1.8.11.custom.min.js HTTP/1.1" 304 0
+[16/May/2011 18:49:59] "GET /static/js/jquery.tokeninput.js HTTP/1.1" 304 0
+[16/May/2011 18:49:59] "GET /static/css/token-input.css HTTP/1.1" 304 0
+[16/May/2011 18:49:59] "GET /static/img/logo.png HTTP/1.1" 304 0
+[16/May/2011 18:49:59] "GET /static/img/row_bg.png HTTP/1.1" 304 0
+[16/May/2011 18:50:01] "GET /projects/1/models HTTP/1.1" 200 6624
+[16/May/2011 18:50:03] "GET /projects/1/observations HTTP/1.1" 200 7006
+[16/May/2011 18:50:04] "GET /projects/1/communities HTTP/1.1" 200 6615
+[16/May/2011 18:50:06] "GET /projects/1/metrics HTTP/1.1" 200 6731
+[16/May/2011 18:50:07] "GET /projects/1/admin HTTP/1.1" 200 6514
+[16/May/2011 18:50:08] "GET /projects/1/observations HTTP/1.1" 200 7006
+[16/May/2011 18:50:10] "GET /projects/1/models HTTP/1.1" 200 6624
+[16/May/2011 18:50:11] "GET /projects/1/communities HTTP/1.1" 200 6615
+[16/May/2011 18:50:13] "GET /projects HTTP/1.1" 200 5836
+[16/May/2011 18:50:22] "GET /projects/2/ HTTP/1.1" 200 6498
+[16/May/2011 18:50:24] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 18:50:25] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:50:27] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:50:28] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:50:30] "GET /projects/2/communities/new HTTP/1.1" 200 5887
+[16/May/2011 18:50:37] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:50:38] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:50:39] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 18:50:40] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:50:41] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:50:41] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 18:50:43] "GET /projects/2/risk HTTP/1.1" 200 6239
+[16/May/2011 18:50:43] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 18:50:44] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:50:45] "GET /projects/2/risk HTTP/1.1" 200 6239
+[16/May/2011 18:50:47] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 18:50:48] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:50:49] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:50:50] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:50:52] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 18:50:54] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:50:56] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:50:58] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 18:51:00] "GET /projects/2/risk HTTP/1.1" 200 6239
+[16/May/2011 18:51:29] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:51:31] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:51:34] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:51:36] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 18:51:38] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:51:41] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 18:51:43] "GET /projects/2/ HTTP/1.1" 200 6498
+[16/May/2011 18:51:45] "GET /projects/2/users/new HTTP/1.1" 200 5600
+[16/May/2011 18:51:50] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 18:51:51] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:51:52] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:51:53] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 18:51:54] "GET /projects/2/models/new HTTP/1.1" 200 5568
+[16/May/2011 18:52:03] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 18:52:04] "GET /projects/2/admin HTTP/1.1" 200 6498
+[16/May/2011 18:52:06] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 18:52:11] "GET /accounts/logout/ HTTP/1.1" 302 0
+[16/May/2011 18:52:11] "GET /accounts/login/ HTTP/1.1" 200 5855
+[16/May/2011 19:02:01] "POST /accounts/login/ HTTP/1.1" 200 5959
+[16/May/2011 19:02:25] "POST /accounts/login/ HTTP/1.1" 200 5959
+[16/May/2011 19:02:32] "POST /accounts/login/ HTTP/1.1" 302 0
+[16/May/2011 19:02:32] "GET /accounts/profile/ HTTP/1.1" 404 4447
+[16/May/2011 19:02:36] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 19:19:19] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 19:19:20] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 19:19:25] "GET /projects/ HTTP/1.1" 200 5836
+[16/May/2011 19:19:58] "GET /projects/2/ HTTP/1.1" 200 6498
+[16/May/2011 19:20:01] "GET /projects/2/metrics HTTP/1.1" 200 6550
+[16/May/2011 19:20:05] "GET /projects/2/observations HTTP/1.1" 200 6384
+[16/May/2011 19:20:08] "GET /projects/2/models HTTP/1.1" 200 6419
+[16/May/2011 19:20:09] "GET /projects/2/communities HTTP/1.1" 200 6467
+[16/May/2011 19:20:12] "GET /projects/2/users HTTP/1.1" 200 6803
+[16/May/2011 19:20:14] "GET /projects/2/risk HTTP/1.1" 200 6239
+[16/May/2011 19:20:17] "GET /accounts/logout/ HTTP/1.1" 302 0
+[16/May/2011 19:20:17] "GET /accounts/login/ HTTP/1.1" 200 5855
+[16/May/2011 19:22:27] "POST /accounts/login/ HTTP/1.1" 302 0
+[16/May/2011 19:22:27] "GET /accounts/profile/ HTTP/1.1" 404 4447
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function inner_run at 0x1a7b848>
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/dist-packages/django/core/management/commands/runserver.py", line 60, in inner_run
+    run(addr, int(port), handler)
+  File "/usr/lib/python2.6/dist-packages/django/core/servers/basehttp.py", line 721, in run
+    httpd.serve_forever()
+  File "/usr/lib/python2.6/SocketServer.py", line 224, in serve_forever
+    r, w, e = select.select([self], [], [], poll_interval)
+AttributeError: 'NoneType' object has no attribute 'select'
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+/usr/lib/pymodules/python2.6/registration/models.py:4: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+[16/May/2011 22:13:06] "GET /accounts/login/ HTTP/1.1" 200 5855
+[16/May/2011 22:13:07] "GET /static/css/main.css HTTP/1.1" 200 9220
+[16/May/2011 22:13:07] "GET /static/js/jquery-1.5.min.js HTTP/1.1" 200 84362
+[16/May/2011 22:13:07] "GET /static/js/jquery.dataTables.min.js HTTP/1.1" 200 66248
+[16/May/2011 22:13:08] "GET /static/js/jquery-ui-1.8.11.custom.min.js HTTP/1.1" 200 208229
+[16/May/2011 22:13:08] "GET /static/js/jquery.tokeninput.js HTTP/1.1" 200 20361
+[16/May/2011 22:13:08] "GET /static/css/token-input.css HTTP/1.1" 200 2514
+[16/May/2011 22:13:09] "GET /static/img/logo.png HTTP/1.1" 200 12816
+[16/May/2011 22:19:13] "POST /accounts/login/ HTTP/1.1" 302 0
+[16/May/2011 22:19:13] "GET /accounts/profile/ HTTP/1.1" 404 5309
+[16/May/2011 22:19:43] "GET /accounts/profile HTTP/1.1" 404 5306
+[16/May/2011 22:19:48] "GET / HTTP/1.1" 200 5836
+[16/May/2011 22:19:48] "GET /static/css/main.css HTTP/1.1" 304 0
+[16/May/2011 22:19:49] "GET /static/img/row_bg.png HTTP/1.1" 200 95
+[16/May/2011 22:20:07] "GET /projects/2/ HTTP/1.1" 200 6498
+[16/May/2011 22:20:07] "GET /static/css/main.css HTTP/1.1" 304 0
+[16/May/2011 22:20:10] "GET /projects/1/ HTTP/1.1" 200 6514
+[16/May/2011 22:20:10] "GET /static/css/main.css HTTP/1.1" 304 0
+[16/May/2011 22:20:14] "GET /projects/1/metrics HTTP/1.1" 200 6818
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Unhandled exception in thread started by <function inner_run at 0x2c96938>
+Validating models...
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/dist-packages/django/core/management/commands/runserver.py", line 48, in inner_run
+    self.validate(display_num_errors=True)
+  File "/usr/lib/python2.6/dist-packages/django/core/management/base.py", line 249, in validate
+    num_errors = get_validation_errors(s, app)
+  File "/usr/lib/python2.6/dist-packages/django/core/management/validation.py", line 28, in get_validation_errors
+    for (app_name, error) in get_app_errors().items():
+  File "/usr/lib/python2.6/dist-packages/django/db/models/loading.py", line 146, in get_app_errors
+    self._populate()
+  File "/usr/lib/python2.6/dist-packages/django/db/models/loading.py", line 61, in _populate
+    self.load_app(app_name, True)
+  File "/usr/lib/python2.6/dist-packages/django/db/models/loading.py", line 78, in load_app
+    models = import_module('.models', app_name)
+  File "/usr/lib/python2.6/dist-packages/django/utils/importlib.py", line 35, in import_module
+    __import__(name)
+  File "/home/mossaic/mossaic/risk_models/models.py", line 97
+    if self.missingValuePolicy == 'D' and self.transformation ne '':
+                                                               ^
+SyntaxError: invalid syntax
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.
+Validating models...
+0 errors found
+
+Django version 1.2.3 SVN-16228, using settings 'mossaic.settings'
+Development server is running at http://0.0.0.0:8080/
+Quit the server with CONTROL-C.

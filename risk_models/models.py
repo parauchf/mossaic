@@ -93,6 +93,18 @@ class ModelMetricLink(models.Model):
 	duplicateValuePolicy = models.CharField(max_length=1,choices=MISSING_POLICIES,default="A")
 	
 	def eval(self,community):
+		val = self.eval_raw(community)
+		if self.metric.metricType == 'D' and self.transformation != '':
+			try:
+				x = val
+				val = eval(self.transformation.replace('^','**')) 
+			except:
+				return None
+			return self.weight * val
+		else:
+			return val
+		
+	def eval_raw(self,community):
 		observations = Observation.objects.filter(community__id__exact=community.id,metric__id__exact=self.metric.id)
 		nobs = observations.count()
 		
@@ -105,7 +117,7 @@ class ModelMetricLink(models.Model):
 		elif nobs == 0:
 			if self.missingValuePolicy == 'D':
 				if self.metric.metricType == 'M':
-					return self.defaulMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
+					return self.defaultMCValue.mcscore_set.filter(modelMetricLink__id__exact=self.id)[0].score
 				elif self.metric.metricType == 'D':
 					return self.defaultDecimalValue
 			else: # metric.missingValuePolicy == 'I':

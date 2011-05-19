@@ -4,21 +4,12 @@
 {% block content %}
 
 
-
-
-
-
-
-
-
-
-
-<h3>Log in</h3>  
-
-
+<table width="100%">
+<tr>
+<td width="50%">
+<h3>Log in</h3>
 <form action="." method="post" autocomplete="off">
 {% csrf_token %}
-<input type="hidden" name="next" value="{{ next }}" />
 {% if form.errors %}
 <p class="submit-stripe red"> &#x26A0; Your username and password didn't match. Please try again. </p>
 {% endif %}
@@ -29,23 +20,26 @@
     <td><input type="text" name="username" value="" id="username"></td>
 </tr>
 <tr>
-    <td><label for="password">Password:</label></td>
+    <td><label for="password">Choose a password:</label></td>
     <td><input type="password" name="password" value="" id="password"></td>
 </tr>
-<tr></tr>
-<tr><td>
-	<span class="text-right">Don't have an account?  <a href="/accounts/register/">Register here</a></span>
-</td></tr>
+<tr>
+    <td><label for="password">Confirm password:</label></td>
+    <td><input type="password" name="password" value="" id="password"></td>
+</tr>
 </table>
-
 </div>
 
 <p id="submit-container" class="submit-stripe gray">
 <input type="submit" value="login" />
-
+<input type="hidden" name="next" value="{{ next }}" />
 </p>
 
-
+</td>
+<td width="50%">
+</td>
+</tr>
+</table>
 
 
 </form>

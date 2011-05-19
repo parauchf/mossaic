@@ -25,6 +25,9 @@ body{
 	
 	padding: 0px;
 	
+	-moz-box-shadow: 0 0 10px #888;
+	-webkit-box-shadow: 0 0 10px #888;
+	box-shadow: 0 0 10px #888;
 }
 
 #content{
@@ -32,15 +35,21 @@ body{
 	margin: 0px;
 	background: #FFF;
 	min-height: 650px;
+	
 }
 
 #header{
 	background: #333333;
 	height: 70px;
 	position: relative;
-	border-bottom: 1px solid #efefef;
+	color: #FFF;
 }
 
+#user-info{
+	float: right;
+	margin: 5px;
+	padding: 5px;
+}
 
 
 /*======================= PATH HEADING =======================*/
@@ -93,67 +102,97 @@ a:hover{
 }
 
 
-.risk-number{
-	background: #efefef;
-	border: 1px solid #cc6666;
-	-webkit-border-radius: 3px;
-	min-width: 20px;
-	text-align: right;
-	display: block-inline;
-	padding: 1px;
-}
 
 /*============================ TABS ============================*/
 ul.tabs{
+	display: block;
 	height: 25px;
 	padding: 0px 5px;
 	margin: 0px 0px 6px 0px;
 	background: #D6D6C1;
-	
 	border-bottom: 1px solid #666;
 }
+
 .tabs li{
-	height: 15px;
-	min-width: 80px;
+	height: 24px;
+	width: 90px;
 	list-style: none;
 	display: block-inline;
 	float: left;
-	margin: 0px 0px;
-	padding: 5px 6px;
+	
+	
+	margin: 0px;
+	padding: 0px;
 	
 	text-align: center;
 	
 }
 
 .tabs li.active{
+	
+	
+}
+
+.tabs li a{
+	height: 15px;
+	padding: 5px 6px;
+	-webkit-border-radius: 4px 4px 0px 0px;
+	-moz-border-radius: 4px 4px 0px 0px;
+	border-radius: 4px 4px 0px 0px;
+	
+	border-top: 1px solid #D6D6C1;
+}
+
+.tabs li.active a{
 	background: #FFF;
 	border-top: 1px solid #666;
 	border-left: 1px solid #666;
 	border-right: 1px solid #666;
-	border-bottom: none;
 	
-
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.49, rgb(255,255,255)),
+	    color-stop(0.75, rgb(242,242,242))
+	);
+	
+	background-image: -moz-linear-gradient(
+	    center bottom,
+	    rgb(255,255,255) 49%,
+	    rgb(242,242,242) 75%
+	);
 }
 
 .tabs a{
-	color: #666	;
+	display: block;
+	color: #000;
 	text-decoration: none;
-	padding: 3px 6px;
-}
-
-.tabs li.inactive:hover{
-	background: #cf7979;
-}
-
-.tabs li.inactive a:hover{
-/*	text-decoration: underline;*/
 	
-	color: #FFFFFF;
-	-webkit-border-radius: 10px;
+}
+.tabs li.inactive a:hover{
+	background: #C6C6B1;
+
 }
 
 
 /*====================== RISK MODEL FORM ========================*/
+
+ul.errorlist {
+    margin: 0;
+    padding: 0;
+}
+.errorlist li {
+    color: #cc6666;
+    display: block;
+    font-size: 10px;
+    margin: 0 0 3px;
+    padding: 4px 5px;
+}
+
+
+
+
 
 input[type="submit"]{
 	border: 1px solid #666;
@@ -190,12 +229,19 @@ select:hover{
 	border: 1px solid #cc6666;
 }
 
-input[type="text"]{
-	background: #FFF;
+input[type="text"],input[type="password"]{
+	background: #FFF !important;
 	border: 1px solid #666;
 	padding: 3px 4px;
 	outline-width:0;
 }
+
+
+
+
+
+
+
 
 .display input{
 		width: 80px;
@@ -286,6 +332,10 @@ table.display thead th {
 	background: #E9E9E9 !important;
 }
 
+.dataTables_wrapper{
+	background: #F5F5F5;
+}
+
 div.dataTables_wrapper .ui-widget-header {
 	font-weight: normal;
 }
@@ -374,13 +424,6 @@ table.display thead th div.DataTables_sort_wrapper span {
 	padding: 5px 0px;
 }
 
-table.display {
-	margin: 0 auto;
-	width: 100%;
-	clear: both;
-	border-collapse: collapse;
-	border: 1px solid #D8D8D8;
-}
 
 table.display tfoot th {
 	padding: 3px 0px 3px 10px;
@@ -443,6 +486,21 @@ div .dataTables_wrapper{
 table.grad tr{
 	background: url('/static/img/row_bg.png');
 	border-top: 1px solid #D8D8D8;
+}
+
+table.grad tr:hover{
+/*	background: url('/static/img/row_bg.png');*/
+	background: #f5e9e9;
+	border-top: 1px solid #D8D8D8;
+}
+
+.dataTables_info{
+	display: block;
+}
+
+.dataTables_paginate{
+	display: block;
+	background: #efefef;
 }
 
 td.right-edge{
@@ -512,7 +570,9 @@ table.display {font: 12px "Helvetica", sans-serif;}
 .a-ctl.active{
 	-webkit-border-radius: 10px 10px 0px 0px;
 	background: #DDE8E8;
-	
+	border-top: 1px solid #CCDDD8;
+	border-left: 1px solid #CCDDD8;
+	border-right: 1px solid #CCDDD8;
 }
 
 .a-ctl:hover .org-inv{
@@ -526,19 +586,52 @@ table.display {font: 12px "Helvetica", sans-serif;}
 }
 
 .submit-stripe{
-	background: #F6F6F6;
-	border: 1px solid #ddd;
 	padding: 3px 6px;
 	min-height: 14px;
-	text-align: right;
+/*	text-align: right;*/
+	margin: 3px 0px;
 }
 
-.actions-panel{
-	border-top: 3px solid #DDE8E8;
+.action-inner{
+	padding: 0px;
+	margin: 0px;
+}
+
+.green{
+	border: 1px solid #CCDDD8;
 	background: #DDE8E8;
+}
+
+
+.red{
+	border: 1px solid #cc6666;
+	background: #f3d7d7;
+}
+
+
+.gray{
+	background: #F6F6F6;
+	border: 1px solid #ddd;	
+}
+
+.form-panel{
 	padding: 5px;
-	display: none;
 	margin: 0px 0px;
+}
+
+.text-right{
+	float: right;
+}
+
+
+.action-outer{
+	margin: 0px;
+	padding: 0px;
+	display: none;
+}
+
+#action-outer{
+	display: none;
 }
 
 .metric-disp{
@@ -548,3 +641,6 @@ table.display {font: 12px "Helvetica", sans-serif;}
 	padding: 5px;
 	vertical-align: top;
 }
+
+
+h1,h2,h3,h4,h5{padding: 5px 2px; margin: 0px; font-weight: bolder;}

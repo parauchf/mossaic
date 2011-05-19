@@ -27,7 +27,11 @@ import re
 
 
 
+
+
+
 @csrf_protect
+@login_required
 def metric(request,metric_id=0,project_id=0,is_new=False, *args, **kwargs):
 	if is_new:
 		metric = Metric()
@@ -76,6 +80,8 @@ def metric(request,metric_id=0,project_id=0,is_new=False, *args, **kwargs):
 	})
 	return render_to_response('modelMetric.html',context,context_instance=RequestContext(request))
 
+@csrf_protect
+@login_required
 def riskModelNew(request,project_id=0):
 	project = Project.objects.get(pk=project_id)
 	if request.method=="POST":
@@ -96,6 +102,8 @@ def riskModelNew(request,project_id=0):
 	})
 	return render_to_response('modelRiskModelNew.html',context,context_instance=RequestContext(request))
 
+@csrf_protect
+@login_required
 def riskModel(request,riskModel_id=0,project_id=0,is_new=False, *args, **kwargs):
 	try:
 		riskModel = RiskModel.objects.get(pk=riskModel_id)
@@ -110,7 +118,7 @@ def riskModel(request,riskModel_id=0,project_id=0,is_new=False, *args, **kwargs)
 			form.save()
 			return HttpResponseRedirect("/projects/%s/models/" % project.id)
 	else:
-		form = RiskModelFormset(instance = riskModel,prefix='riskform')
+		form = RiskModelFormset(instance = riskModel,prefix='riskform',)
 	
 	context = RequestContext(request,{
 		'model': riskModel,
@@ -121,6 +129,8 @@ def riskModel(request,riskModel_id=0,project_id=0,is_new=False, *args, **kwargs)
 	})
 	return render_to_response('modelRiskModel.html',context,context_instance=RequestContext(request))
 
+@csrf_protect
+@login_required
 def metricLinkNew(request,riskModel_id=0,project_id=0,*args, **kwargs):
 	mml = ModelMetricLink()
 	riskModel = RiskModel.objects.get(pk=riskModel_id)
@@ -152,7 +162,8 @@ def metricLinkNew(request,riskModel_id=0,project_id=0,*args, **kwargs):
 	})	
 	return render_to_response('projectMetricLink.html',context,context_instance=RequestContext(request))
 	
-
+@csrf_protect
+@login_required
 def ajaxMetrics(request):
 	if request.method=="GET" and request.GET.has_key(u'q'):
 		q=request.GET[u'q']
@@ -160,6 +171,8 @@ def ajaxMetrics(request):
 		return render_to_response('ajaxMetrics.json',{'metrics':metrics})
 	return HttpResponse("")
 
+@csrf_protect
+@login_required
 def metricList(request):
 	try:
 		metrics=Metric.objects.all()
@@ -172,6 +185,8 @@ def metricList(request):
 	
 	return render_to_response('modelMetricList.html',context,context_instance=RequestContext(request))
 
+@csrf_protect
+@login_required
 def riskModelList(request):
 	try:
 		riskModels=RiskModel.objects.all()
@@ -184,6 +199,8 @@ def riskModelList(request):
 	
 	return render_to_response('modelRiskModelList.html',context,context_instance=RequestContext(request))
 
+@csrf_protect
+@login_required
 def observation(request,observation_id):
 	raise Http404
 	
@@ -192,6 +209,8 @@ def observation(request,observation_id):
 			form.save()
 			obs.user = request.user
 
+@csrf_protect
+@login_required
 def newObservation(request):
 	raise Http404
 

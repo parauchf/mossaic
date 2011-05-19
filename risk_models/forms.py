@@ -70,4 +70,4 @@ class ModelElementForm(ModelForm):
 
 ChoiceFormSet = inlineformset_factory(Metric,MCOption,can_order=True,can_delete=True)	
 				
-RiskModelFormset = inlineformset_factory(RiskModel, ModelMetricLink, form=ModelElementForm,  extra=0)
+RiskModelFormset = inlineformset_factory(RiskModel, ModelMetricLink, form=ModelElementForm,  extra=0,can_delete=True)

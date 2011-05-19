@@ -1,0 +1,34 @@
+{% extends "projectBase.html" %}
+
+
+{% block tabcontent %}
+
+<div id="tab-content">
+	
+	<div id="actions" class="stripe">
+	</div>
+	
+	<div id="action-outer" class="action-outer">
+	</div>
+	
+	<form>
+		<div class="form-panel gray">
+		 <table class="" cellpadding="0" cellspacing="0" border="0" class="display" id="users_table" width="100%" align="center">
+			<tbody>
+				<tr>
+					<td> Title: </td>
+					<td>{{ form.name }}</td>
+				<tr>
+			</tbody>
+	       </table>
+		</div>
+		<div class="submit-stripe gray">
+			<input type="submit" value="Update">
+		</div>
+	</form>
+</div>
+
+
+
+
+{% endblock %}

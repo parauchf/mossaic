@@ -24,3 +24,9 @@ class NewUserForm(forms.Form):
 	new_users = forms.CharField(widget=
 		forms.TextInput(attrs={'class':'tokenized ajaxurl-ajax-users'}))
 	
+
+class ProjectForm(ModelForm):
+	class Meta:
+		model = Project
+		widgets = {
+		}

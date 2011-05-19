@@ -6,6 +6,7 @@
 {% block content %}
 
 <h3 id="title" class="title-stripe"> 
+	/ <a href="/projects/" class="bread-crumb">Projects </a> /
 	<a href="/projects/{{project.id}}" class="bread-crumb">{{project.name}}</a> /
 	<a href="{% url projects.views.riskModelList project_id=project.id %}" class="bread-crumb">Models</a> /
 	<a href="#"class="bread-crumb">{{model.name}}</a>
@@ -13,8 +14,8 @@
 
 <ul class="tabs yellow">
 	<li class="{% ifequal active_tab "risk_model" %}active{% endifequal %}">
-		<a href="/projects/{{project.id}}/admin">Model</a></li>
-    <li class="{% ifequal active_tab "statistics" %}active{% endifequal %}">
+		<a href="/projects/{{project.id}}/models/{{model.id}}/edit">Model</a></li>
+    <li class="{% ifequal active_tab "statistics" %}active{% endifequal %}" style="text-decoration: line-through;">
 		<a href="#">Statistics</a></li>
 </ul>
 
